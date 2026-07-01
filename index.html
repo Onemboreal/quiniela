@@ -170,13 +170,14 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 
     <div class="rules">
       <h3>📋 Cómo funciona</h3>
-      <div class="rule-item"><span class="ri-icon">⚽</span><span>Apuesta quién gana cada partido y el marcador exacto, ronda por ronda: primero Octavos, luego Cuartos, Semifinales y Final.</span></div>
+      <div class="rule-item"><span class="ri-icon">⚽</span><span>Apuesta quién gana cada partido y el marcador, ronda por ronda: primero Octavos, luego Cuartos, Semifinales y Final.</span></div>
+      <div class="rule-item"><span class="ri-icon">🎯</span><span><strong>Sistema de puntos:</strong> 1 punto por acertar el ganador, +1 punto por acertar los goles exactos de cada equipo por separado. Ejemplo: si el resultado real es 3-2 y tú pusiste 4-2, ganas 2 puntos (1 por el ganador correcto + 1 por acertar el "2" de un equipo).</span></div>
       <div class="rule-item"><span class="ri-icon">⏰</span><span>Solo puedes apostar hasta <strong>la noche anterior</strong> a cada partido. El día del partido ya no puedes apostar y pierdes esos puntos.</span></div>
       <div class="rule-item"><span class="ri-icon">🔒</span><span>Cuando le des <strong>ENVIAR</strong> a un partido, tu apuesta queda registrada y <strong>ya no se puede modificar</strong>.</span></div>
       <div class="rule-item"><span class="ri-icon">🏆</span><span>El que más puntos acumule al final del Mundial gana el pozo. Si hay empate, se divide.</span></div>
       <div class="rules-pts">
         <div class="rp"><div class="n">1</div><div class="l">pt por acertar ganador</div></div>
-        <div class="rp"><div class="n">+2</div><div class="l">pts por marcador exacto</div></div>
+        <div class="rp"><div class="n">1</div><div class="l">pt por goles exactos de cada equipo</div></div>
         <div class="rp"><div class="n">3</div><div class="l">pts máximo por partido</div></div>
       </div>
     </div>
@@ -459,7 +460,7 @@ function cardH(m){
   if(done){
     if(pick){
       const MT=TM[pick.winner];
-      let pts=0;if(pick.winner===m.w){pts=1;if(pick.g1!=null&&pick.g2!=null&&parseInt(pick.g1)===m.s1&&parseInt(pick.g2)===m.s2)pts=3;}
+      let pts=0;if(pick.winner===m.w)pts+=1;if(pick.g1!=null&&parseInt(pick.g1)===m.s1)pts+=1;if(pick.g2!=null&&parseInt(pick.g2)===m.s2)pts+=1;
       html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null?` ${pick.g1}-${pick.g2}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
     }
   } else if(pick&&pick.sent){
@@ -473,7 +474,7 @@ function cardH(m){
         `<div class="wbtn${s.winner===t1?' sel':''}" onclick="selWin('${m.id}','${t1}')">${T1.f} ${T1.n}</div>`+
         `<div class="wbtn${s.winner===t2?' sel':''}" onclick="selWin('${m.id}','${t2}')">${T2.f} ${T2.n}</div>`+
       `</div>`+
-      `<div class="apuesta-lbl">Marcador (opcional +2 pts)</div>`+
+      `<div class="apuesta-lbl">Marcador (1 pt por cada equipo si aciertas sus goles)</div>`+
       `<div class="sc-row"><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${s.g1!=null?s.g1:''}"/><span class="sep">—</span><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${s.g2!=null?s.g2:''}"/></div>`+
       `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ENVIAR</button>`+
     `</div>`;
@@ -539,7 +540,9 @@ async function calcScore(){
   ALL.forEach(m=>{
     if(!m.done)return;
     const p=picks[m.id];if(!p)return;
-    if(p.winner===m.w){sc+=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)sc+=2;}
+    if(p.winner===m.w)sc+=1;
+    if(p.g1!=null&&parseInt(p.g1)===m.s1)sc+=1;
+    if(p.g2!=null&&parseInt(p.g2)===m.s2)sc+=1;
   });
   const d=await getDb();
   await d.from('participants').update({score_m1:sc}).eq('id',cu.id);
@@ -561,7 +564,7 @@ async function buildTabla(){
     const div=wins.length>1?` (÷${wins.length} = $${Math.floor(pozo/wins.length).toLocaleString()} c/u)`:'';
     el.innerHTML=`<div class="cl-header">CLASIFICACIÓN</div>`+
       `<div class="pozo"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${div||'El que más puntos acumule gana todo'} · ${paying} pagados</div></div>`+
-      `<div class="sc-info"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
+      `<div class="sc-info"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n">1+1</div><div class="sc-l">pt por goles de c/equipo</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
       `<div class="podio">${us.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold':''}"><div class="podpos">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div><div class="podpts">${p.score_m1||0} pts</div><div style="font-size:9px;margin-top:3px;color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'💰 Pago OK':'💰 Sin pagar'}</div></div>`).join('')}</div>`+
       `<div class="rtable">${us.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}"><div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div><div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--or)">(tú)</span>':''}</div><div class="rpts">${p.score_m1||0} pts</div><span style="font-size:10px;color:${p.paid_m1?'#4ade80':'var(--rd)'};" title="Estado de pago de $500">${p.paid_m1?'💰✅':'💰❌'}</span></div>`).join('')}</div>`;
   }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error: '+ex.message+'</p>';}
@@ -582,7 +585,7 @@ async function buildTodos(){
       ALL.forEach(m=>{
         const p=pm[m.id];if(!p)return;
         const MT=TM[p.winner];if(!MT)return;
-        let pts='';if(m.done){let s=0;if(p.winner===m.w){s=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)s=3;}pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
+        let pts='';if(m.done){let s=0;if(p.winner===m.w)s+=1;if(p.g1!=null&&parseInt(p.g1)===m.s1)s+=1;if(p.g2!=null&&parseInt(p.g2)===m.s2)s+=1;pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
         h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null?`<div class="upc-score">${p.g1}-${p.g2}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
