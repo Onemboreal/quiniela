@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiniela Mundial 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root{--vd:#071a10;--vc:#0f2e1a;--vm:#1a4a2e;--vcl:#2d7a4f;--or:#f5c518;--orl:#ffe066;--bl:#f0f4f0;--gr:#8a9e8f;--rd:#e63946;--bd:#1e4d2b;--az:#3b82f6;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -13,42 +12,43 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;}
 
-/* ── BIENVENIDA ── */
-#swelcome{flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0d3520 0%,var(--vd) 70%);padding:20px;}
-.wcard{background:var(--vc);border:1px solid var(--bd);border-radius:20px;padding:32px;width:100%;max-width:520px;position:relative;}
+/* BIENVENIDA */
+#swelcome{flex-direction:column;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center,#0d3520 0%,var(--vd) 70%);}
+.wcard{background:var(--vc);border:1px solid var(--bd);border-radius:20px;padding:32px;width:100%;max-width:500px;position:relative;}
 .wcard::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--or),transparent);}
 .wtitle{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:4px;color:var(--or);text-align:center;line-height:1;}
-.wsub{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gr);text-align:center;margin-bottom:24px;}
+.wsub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gr);text-align:center;margin-bottom:24px;}
 .trophy{font-size:56px;text-align:center;display:block;margin-bottom:8px;}
-.mod-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
-.mod-card{border-radius:12px;padding:18px;border:1px solid;}
-.mod-card.m1{background:rgba(245,197,24,0.06);border-color:rgba(245,197,24,0.3);}
-.mod-card.m2{background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.3);}
-.mod-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.mod-card-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;}
-.mod-card.m1 .mod-card-title{color:var(--or);}
-.mod-card.m2 .mod-card-title{color:var(--az);}
-.mod-price{font-family:'Bebas Neue',sans-serif;font-size:22px;}
-.mod-card.m1 .mod-price{color:var(--or);}
-.mod-card.m2 .mod-price{color:var(--az);}
-.mod-desc{font-size:12px;color:var(--gr);line-height:1.6;}
-.mod-pts{display:flex;gap:8px;margin-top:8px;}
-.mod-pt{background:rgba(255,255,255,0.05);border-radius:6px;padding:6px 10px;font-size:11px;text-align:center;flex:1;}
-.mod-pt .n{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--or);}
-.mod-card.m2 .mod-pt .n{color:var(--az);}
-.mod-pt .l{font-size:9px;color:var(--gr);}
-.total-prize{background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);border-radius:10px;padding:12px;text-align:center;margin-bottom:20px;}
-.tp-lbl{font-size:11px;color:var(--gr);letter-spacing:1px;}
-.tp-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--or);}
-.btn-enter{width:100%;background:var(--or);color:#000;border:none;border-radius:10px;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;}
-.btn-enter:hover{background:var(--orl);transform:translateY(-1px);}
 
-/* ── LOGIN ── */
+/* APUESTAS */
+.apuesta-card{border-radius:14px;padding:20px;margin-bottom:14px;border:2px solid;}
+.apuesta-card.a1{background:rgba(245,197,24,0.05);border-color:rgba(245,197,24,0.3);}
+.apuesta-card.a2{background:rgba(59,130,246,0.05);border-color:rgba(59,130,246,0.3);}
+.apuesta-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.apuesta-titulo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;}
+.apuesta-card.a1 .apuesta-titulo{color:var(--or);}
+.apuesta-card.a2 .apuesta-titulo{color:var(--az);}
+.apuesta-precio{font-family:'Bebas Neue',sans-serif;font-size:26px;}
+.apuesta-card.a1 .apuesta-precio{color:var(--or);}
+.apuesta-card.a2 .apuesta-precio{color:var(--az);}
+.apuesta-desc{font-size:12px;color:var(--gr);line-height:1.7;margin-bottom:10px;}
+.apuesta-pts{display:flex;gap:8px;}
+.apt{flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;}
+.apt .n{font-family:'Bebas Neue',sans-serif;font-size:22px;}
+.apuesta-card.a1 .apt .n{color:var(--or);}
+.apuesta-card.a2 .apt .n{color:var(--az);}
+.apt .l{font-size:9px;color:var(--gr);}
+
+.divider{text-align:center;color:var(--gr);font-size:12px;margin:4px 0 14px;letter-spacing:1px;}
+.btn-enter{width:100%;background:var(--or);color:#000;border:none;border-radius:10px;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;}
+.btn-enter:hover{background:var(--orl);}
+
+/* LOGIN */
 #slg{align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0d3520 0%,var(--vd) 70%);}
-.lb{background:var(--vc);border:1px solid var(--bd);border-radius:16px;padding:32px;width:360px;position:relative;}
+.lb{background:var(--vc);border:1px solid var(--bd);border-radius:16px;padding:32px;width:100%;max-width:360px;position:relative;}
 .lb::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--or),transparent);}
 .ltitle{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--or);margin-bottom:4px;}
-.lsub2{font-size:12px;color:var(--gr);margin-bottom:20px;}
+.lsub{font-size:12px;color:var(--gr);margin-bottom:20px;}
 .tabs{display:flex;background:rgba(255,255,255,0.05);border-radius:8px;padding:3px;margin-bottom:18px;}
 .tab{flex:1;padding:8px;text-align:center;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--gr);transition:all 0.2s;}
 .tab.active{background:var(--vm);color:var(--bl);}
@@ -58,12 +58,12 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .fg input:focus{border-color:var(--or);}
 .btn{width:100%;background:var(--or);color:#000;border:none;border-radius:8px;padding:13px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;margin-top:4px;}
 .btn:hover{background:var(--orl);}
-.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn:disabled{opacity:0.6;cursor:not-allowed;}
 .err{color:var(--rd);font-size:12px;margin-top:6px;display:none;}
 .back-link{text-align:center;margin-top:14px;font-size:12px;color:var(--gr);cursor:pointer;}
 .back-link:hover{color:var(--bl);}
 
-/* ── MAIN ── */
+/* MAIN */
 #smain{flex-direction:column;}
 .topbar{background:var(--vc);border-bottom:1px solid var(--bd);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:50;}
 .tbtitle{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--or);}
@@ -72,22 +72,25 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .lob{background:transparent;border:1px solid var(--bd);color:var(--gr);border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;}
 .lob:hover{border-color:var(--rd);color:var(--rd);}
 
-/* MOD SWITCHER */
-.mod-switcher{display:flex;background:var(--vc);border-bottom:1px solid var(--bd);}
-.mod-btn{flex:1;padding:12px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;border-bottom:3px solid transparent;transition:all 0.2s;color:var(--gr);}
-.mod-btn.active.m1{color:var(--or);border-bottom-color:var(--or);}
-.mod-btn.active.m2{color:var(--az);border-bottom-color:var(--az);}
-.mod-btn:hover{color:var(--bl);}
+/* SELECTOR DE APUESTA */
+.apuesta-selector{display:flex;gap:12px;padding:16px;background:var(--vc);border-bottom:1px solid var(--bd);}
+.sel-btn{flex:1;padding:12px;border-radius:10px;border:2px solid var(--bd);cursor:pointer;text-align:center;transition:all 0.2s;background:transparent;}
+.sel-btn.active.a1{border-color:var(--or);background:rgba(245,197,24,0.08);}
+.sel-btn.active.a2{border-color:var(--az);background:rgba(59,130,246,0.08);}
+.sel-btn-icon{font-size:24px;margin-bottom:4px;}
+.sel-btn-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;}
+.sel-btn.active.a1 .sel-btn-title{color:var(--or);}
+.sel-btn.active.a2 .sel-btn-title{color:var(--az);}
+.sel-btn-price{font-size:11px;color:var(--gr);margin-top:2px;}
 
 .navtabs{display:flex;background:var(--vc);border-bottom:1px solid var(--bd);padding:0 12px;overflow-x:auto;}
-.ntab{padding:10px 12px;font-size:11px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--gr);transition:all 0.2s;white-space:nowrap;}
-.ntab:hover{color:var(--bl);}
+.ntab{padding:10px 14px;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--gr);transition:all 0.2s;white-space:nowrap;}
 .ntab.active{color:var(--or);border-bottom-color:var(--or);}
-.ntab.active.m2{color:var(--az);border-bottom-color:var(--az);}
+.ntab.active.az{color:var(--az);border-bottom-color:var(--az);}
 .tcon{display:none;}
 .tcon.active{display:block;}
 
-/* BRACKET M1 */
+/* BRACKET */
 .bwrap{padding:16px;overflow-x:auto;}
 .bcont{display:flex;min-width:1300px;}
 .rcol{display:flex;flex-direction:column;flex:1;min-width:145px;}
@@ -97,7 +100,7 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .mcard{background:var(--vc);border:1px solid var(--bd);border-radius:6px;overflow:hidden;transition:border-color 0.2s;}
 .mcard.clickable{cursor:pointer;}
 .mcard.clickable:hover{border-color:var(--or);}
-.mcard.closed{opacity:0.6;}
+.mcard.nopuntos{opacity:0.5;}
 .mdate{font-size:8px;color:var(--gr);text-align:center;padding:2px 0;background:rgba(0,0,0,0.2);}
 .tslot{display:flex;align-items:center;gap:6px;padding:5px 8px;min-height:28px;}
 .tslot:first-of-type{border-bottom:1px solid var(--bd);}
@@ -116,90 +119,83 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 
 /* PARTIDOS M2 */
 .m2wrap{padding:16px;}
-.m2title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--az);margin-bottom:4px;}
-.m2sub{font-size:12px;color:var(--gr);margin-bottom:16px;}
-.match2-list{display:flex;flex-direction:column;gap:10px;}
-.match2-card{background:var(--vc);border:1px solid var(--bd);border-radius:10px;overflow:hidden;}
-.match2-card.open-pick{border-color:rgba(59,130,246,0.4);}
-.match2-card.closed-pick{opacity:0.7;}
-.match2-header{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);}
-.match2-date{font-size:11px;color:var(--gr);}
-.match2-status{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:600;}
-.status-open{background:rgba(59,130,246,0.15);color:var(--az);}
-.status-closed{background:rgba(230,57,70,0.15);color:var(--rd);}
-.status-done{background:rgba(74,222,128,0.15);color:#4ade80;}
-.match2-teams{display:flex;align-items:center;gap:12px;padding:12px 14px;}
+.m2-empty{text-align:center;padding:48px 20px;color:var(--gr);}
+.m2-empty .ei{font-size:48px;margin-bottom:12px;}
+.match2-card{background:var(--vc);border:1px solid var(--bd);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.match2-card.abierto{border-color:rgba(59,130,246,0.4);}
+.match2-header{padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);background:rgba(0,0,0,0.15);}
+.match2-fecha{font-size:11px;color:var(--gr);}
+.badge{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:600;}
+.badge.open{background:rgba(59,130,246,0.15);color:var(--az);}
+.badge.closed{background:rgba(230,57,70,0.15);color:var(--rd);}
+.badge.done{background:rgba(74,222,128,0.15);color:#4ade80;}
+.match2-teams{display:flex;align-items:center;gap:12px;padding:14px;}
 .match2-team{flex:1;text-align:center;}
-.match2-flag{font-size:28px;}
+.match2-flag{font-size:32px;}
 .match2-name{font-size:12px;font-weight:600;margin-top:4px;}
-.match2-vs{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gr);}
-.match2-result{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--or);padding:0 14px 8px;}
-.match2-pick-area{padding:10px 14px;background:rgba(0,0,0,0.15);border-top:1px solid var(--bd);}
-.pick-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gr);margin-bottom:8px;}
-.pick-btns{display:flex;gap:8px;margin-bottom:8px;}
-.pick-btn{flex:1;padding:8px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);border-radius:8px;cursor:pointer;text-align:center;font-size:12px;font-weight:600;transition:all 0.2s;}
-.pick-btn:hover,.pick-btn.sel{background:rgba(59,130,246,0.1);border-color:var(--az);color:var(--az);}
-.score-row2{display:flex;align-items:center;gap:8px;margin-top:6px;}
-.score-row2 label{font-size:10px;color:var(--gr);min-width:60px;}
-.score-inputs2{display:flex;align-items:center;gap:6px;}
-.score-inputs2 input{width:44px;background:rgba(255,255,255,0.05);border:1px solid var(--bd);border-radius:6px;padding:6px;color:var(--bl);font-size:15px;font-weight:700;text-align:center;outline:none;}
-.score-inputs2 input:focus{border-color:var(--az);}
-.score-sep2{font-size:16px;color:var(--gr);}
-.pick-save-btn{width:100%;margin-top:8px;background:var(--az);color:#fff;border:none;border-radius:8px;padding:9px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;cursor:pointer;}
-.pick-save-btn:hover{background:#2563eb;}
-.my-pick-display{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(59,130,246,0.08);border-radius:8px;border:1px solid rgba(59,130,246,0.2);}
-.mpd-team{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;}
-.mpd-score{font-size:11px;color:var(--gr);}
-.mpd-pts{font-size:11px;font-weight:700;}
-.empty-m2{text-align:center;padding:48px 20px;color:var(--gr);}
-.empty-m2 .ei{font-size:48px;margin-bottom:12px;}
-.empty-m2 p{font-size:14px;}
+.match2-vs{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gr);}
+.match2-resultado{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--or);padding:0 14px 10px;}
+.pick-area{padding:12px 14px;background:rgba(0,0,0,0.1);border-top:1px solid var(--bd);}
+.pick-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gr);margin-bottom:8px;}
+.pick-btns{display:flex;gap:8px;margin-bottom:10px;}
+.pbtn{flex:1;padding:9px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);border-radius:8px;cursor:pointer;text-align:center;font-size:12px;font-weight:600;transition:all 0.2s;}
+.pbtn:hover,.pbtn.sel{background:rgba(59,130,246,0.1);border-color:var(--az);color:var(--az);}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.score-row label{font-size:10px;color:var(--gr);min-width:55px;}
+.sinp{display:flex;align-items:center;gap:6px;}
+.sinp input{width:44px;background:rgba(255,255,255,0.05);border:1px solid var(--bd);border-radius:6px;padding:6px;color:var(--bl);font-size:15px;font-weight:700;text-align:center;outline:none;}
+.sinp input:focus{border-color:var(--az);}
+.sinp span{font-size:16px;color:var(--gr);}
+.pick-save{width:100%;background:var(--az);color:#fff;border:none;border-radius:8px;padding:9px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;cursor:pointer;}
+.pick-save:hover{background:#2563eb;}
+.mi-pick{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(59,130,246,0.06);border-radius:8px;border:1px solid rgba(59,130,246,0.2);}
+.mi-pick-team{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;}
+.mi-pick-pts{font-size:12px;font-weight:700;}
 
 /* CLASIFICACIÓN */
 .lwrap{padding:16px;}
-.lhdr{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;margin-bottom:4px;}
-.lhdr.m1{color:var(--or);}
-.lhdr.m2{color:var(--az);}
-.lsub{font-size:12px;color:var(--gr);margin-bottom:16px;}
-.pozo-box{border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;}
-.pozo-box.m1{background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);}
-.pozo-box.m2{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);}
+.cl-header{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;margin-bottom:16px;}
+.cl-header.or{color:var(--or);}
+.cl-header.az{color:var(--az);}
+.pozo{border-radius:10px;padding:14px;text-align:center;margin-bottom:14px;}
+.pozo.or{background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);}
+.pozo.az{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);}
 .pozo-lbl{font-size:10px;letter-spacing:2px;color:var(--gr);text-transform:uppercase;}
 .pozo-val{font-family:'Bebas Neue',sans-serif;font-size:32px;}
-.pozo-box.m1 .pozo-val{color:var(--or);}
-.pozo-box.m2 .pozo-val{color:var(--az);}
+.pozo.or .pozo-val{color:var(--or);}
+.pozo.az .pozo-val{color:var(--az);}
 .pozo-sub{font-size:11px;color:var(--gr);margin-top:2px;}
-.scoring-row{display:flex;gap:8px;margin-bottom:16px;}
+.sc-row{display:flex;gap:8px;margin-bottom:14px;}
 .sc-box{flex:1;background:var(--vc);border:1px solid var(--bd);border-radius:8px;padding:10px;text-align:center;}
 .sc-n{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--or);}
+.sc-n.az{color:var(--az);}
 .sc-l{font-size:10px;color:var(--gr);}
-.podio{display:flex;gap:8px;margin-bottom:16px;align-items:flex-end;}
+.podio{display:flex;gap:8px;margin-bottom:14px;align-items:flex-end;}
 .podcard{flex:1;background:var(--vc);border:1px solid var(--bd);border-radius:10px;padding:14px 8px;text-align:center;}
 .podcard.gold{border-color:var(--or);background:linear-gradient(180deg,rgba(245,197,24,0.08),var(--vc));flex:1.2;}
-.podcard.gold2{border-color:var(--az);background:linear-gradient(180deg,rgba(59,130,246,0.08),var(--vc));flex:1.2;}
+.podcard.gold-az{border-color:var(--az);background:linear-gradient(180deg,rgba(59,130,246,0.08),var(--vc));flex:1.2;}
 .podpos{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--or);}
 .podname{font-size:12px;font-weight:600;margin:2px 0;}
 .podpts{font-size:11px;color:var(--gr);}
 .rtable{background:var(--vc);border:1px solid var(--bd);border-radius:10px;overflow:hidden;}
-.rrow{display:flex;align-items:center;padding:11px 14px;gap:10px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background 0.15s;}
+.rrow{display:flex;align-items:center;padding:11px 14px;gap:10px;border-bottom:1px solid var(--bd);transition:background 0.15s;}
 .rrow:last-child{border-bottom:none;}
 .rrow:hover{background:rgba(255,255,255,0.02);}
 .rrow.me{background:rgba(245,197,24,0.04);}
 .rnum{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gr);min-width:22px;}
 .rav{width:30px;height:30px;background:var(--vm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--or);}
 .rname{flex:1;font-size:13px;font-weight:500;}
-.rpts{font-weight:700;font-size:14px;}
-.rpts.m1{color:var(--or);}
-.rpts.m2{color:var(--az);}
+.rpts{font-weight:700;font-size:14px;color:var(--or);}
+.rpts.az{color:var(--az);}
 .rpaid{font-size:10px;margin-left:4px;}
 
-/* PICKS DE TODOS */
+/* TODOS */
 .todos-wrap{padding:16px;}
-.user-picks-card{background:var(--vc);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px;}
-.upc-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.upc{background:var(--vc);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px;}
+.upc-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .upc-name{font-size:14px;font-weight:600;}
-.upc-pts{font-size:11px;margin-left:auto;font-weight:700;}
-.upc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;}
+.upc-pts-badge{margin-left:auto;font-weight:700;font-size:13px;}
+.upc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:6px;}
 .upc-item{background:rgba(255,255,255,0.03);border:1px solid var(--bd);border-radius:6px;padding:7px;}
 .upc-match{font-size:8px;color:var(--gr);margin-bottom:3px;}
 .upc-pick{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;}
@@ -211,94 +207,80 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .overlay.open{display:flex;}
 .mbox{background:var(--vc);border:1px solid var(--bd);border-radius:14px;padding:22px;width:320px;max-height:90vh;overflow-y:auto;}
 .mtitle{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--or);margin-bottom:4px;}
-.msub2{font-size:11px;color:var(--gr);margin-bottom:14px;}
-.msec{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gr);margin-bottom:8px;margin-top:14px;}
+.msub{font-size:11px;color:var(--gr);margin-bottom:14px;}
+.msec{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gr);margin:14px 0 8px;}
 .mopts{display:flex;flex-direction:column;gap:6px;}
 .mopt{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:500;}
 .mopt:hover,.mopt.sel{background:rgba(245,197,24,0.08);border-color:var(--or);color:var(--or);}
 .mfl{font-size:18px;}
-.score-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
-.score-row label{font-size:10px;color:var(--gr);min-width:60px;}
-.score-inputs{display:flex;align-items:center;gap:6px;}
-.score-inputs input{width:44px;background:rgba(255,255,255,0.05);border:1px solid var(--bd);border-radius:6px;padding:7px;color:var(--bl);font-size:15px;font-weight:700;text-align:center;outline:none;}
-.score-inputs input:focus{border-color:var(--or);}
-.score-sep{font-size:16px;color:var(--gr);}
+.msinp{display:flex;align-items:center;gap:6px;margin-top:10px;}
+.msinp input{width:44px;background:rgba(255,255,255,0.05);border:1px solid var(--bd);border-radius:6px;padding:7px;color:var(--bl);font-size:15px;font-weight:700;text-align:center;outline:none;}
+.msinp input:focus{border-color:var(--or);}
+.msinp label{font-size:10px;color:var(--gr);min-width:55px;}
+.msinp span{font-size:16px;color:var(--gr);}
 .pts-prev{background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);border-radius:8px;padding:7px 12px;margin-top:10px;font-size:11px;color:var(--or);text-align:center;}
 .mbtn{width:100%;background:var(--or);color:#000;border:none;border-radius:8px;padding:11px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;margin-top:12px;}
 .mbtn:hover{background:var(--orl);}
 .bcnl{width:100%;margin-top:8px;background:transparent;border:1px solid var(--bd);border-radius:8px;padding:9px;color:var(--gr);font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;}
 .bcnl:hover{color:var(--bl);}
 
-.loading{position:fixed;inset:0;background:var(--vd);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px;}
-.spinner{width:36px;height:36px;border:3px solid var(--bd);border-top-color:var(--or);border-radius:50%;animation:spin 0.8s linear infinite;}
+.spinner-sm{width:20px;height:20px;border:2px solid var(--bd);border-top-color:var(--or);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.ldtxt{font-size:12px;color:var(--gr);letter-spacing:2px;}
 .toast{position:fixed;bottom:20px;right:20px;background:var(--vcl);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;}
 .toast.show{transform:translateY(0);opacity:1;}
 </style>
 </head>
 <body>
 
-<div class="loading" id="loading"><div class="spinner"></div><div class="ldtxt">CARGANDO...</div></div>
-
-<!-- ══ BIENVENIDA ══ -->
-<div class="screen" id="swelcome">
+<!-- BIENVENIDA -->
+<div class="screen active" id="swelcome">
   <div class="wcard">
     <span class="trophy">🏆</span>
     <div class="wtitle">MUNDIAL 2026</div>
     <div class="wsub">Sistema de Quiniela</div>
 
-    <div class="mod-cards">
-      <div class="mod-card m1">
-        <div class="mod-card-header">
-          <div class="mod-card-title">🗂 MODALIDAD 1 — BRACKET</div>
-          <div class="mod-price">$500</div>
-        </div>
-        <div class="mod-desc">
-          Adivina <strong>todos los partidos</strong> del Mundial desde hoy hasta la final.<br>
-          Llenas tu bracket completo una sola vez y acumulas puntos conforme avanzan los juegos.<br>
-          Los partidos ya jugados <strong>no cuentan</strong>.
-        </div>
-        <div class="mod-pts">
-          <div class="mod-pt"><div class="n">1</div><div class="l">pto por ganador</div></div>
-          <div class="mod-pt"><div class="n">+2</div><div class="l">pts marcador exacto</div></div>
-          <div class="mod-pt"><div class="n">3</div><div class="l">pts máximo</div></div>
-        </div>
+    <div class="apuesta-card a1">
+      <div class="apuesta-header">
+        <div class="apuesta-titulo">🏆 APUESTA 1 — BRACKET</div>
+        <div class="apuesta-precio">$500</div>
       </div>
-
-      <div class="mod-card m2">
-        <div class="mod-card-header">
-          <div class="mod-card-title" style="color:var(--az)">⚡ MODALIDAD 2 — PARTIDO A PARTIDO</div>
-          <div class="mod-price" style="color:var(--az)">$500</div>
-        </div>
-        <div class="mod-desc">
-          Apuesta <strong>partido por partido</strong> conforme se van registrando.<br>
-          Tienes hasta <strong>1 día antes</strong> de cada partido para poner tu pick.<br>
-          El día del partido <strong>ya no puedes cambiar</strong> tu apuesta.
-        </div>
-        <div class="mod-pts">
-          <div class="mod-pt"><div class="n" style="color:var(--az)">1</div><div class="l">pto por ganador</div></div>
-          <div class="mod-pt"><div class="n" style="color:var(--az)">+2</div><div class="l">pts marcador exacto</div></div>
-          <div class="mod-pt"><div class="n" style="color:var(--az)">÷</div><div class="l">empate divide pozo</div></div>
-        </div>
+      <div class="apuesta-desc">
+        Elige quién gana <strong>cada partido</strong> desde hoy hasta la final del Mundial.<br>
+        Solo apuestas sobre partidos que ya están definidos. Acumulas puntos conforme avanzan los juegos.
+      </div>
+      <div class="apuesta-pts">
+        <div class="apt"><div class="n">1</div><div class="l">pt por ganador</div></div>
+        <div class="apt"><div class="n">+2</div><div class="l">pts marcador exacto</div></div>
+        <div class="apt"><div class="n">3</div><div class="l">pts máximo</div></div>
       </div>
     </div>
 
-    <div class="total-prize">
-      <div class="tp-lbl">Puedes participar en una o en ambas modalidades</div>
-      <div class="tp-val">$500 por modalidad</div>
-      <div style="font-size:11px;color:var(--gr);margin-top:2px;">El que más puntos acumule gana el pozo de su modalidad</div>
+    <div class="apuesta-card a2">
+      <div class="apuesta-header">
+        <div class="apuesta-titulo" style="color:var(--az);">⚡ APUESTA 2 — SEMANA A SEMANA</div>
+        <div class="apuesta-precio" style="color:var(--az);">$500</div>
+      </div>
+      <div class="apuesta-desc">
+        Cada semana aparecen los partidos nuevos. Tú eliges quién gana y el marcador.<br>
+        Tienes hasta <strong>1 día antes</strong> de cada partido para apostar. El día del partido ya no puedes cambiar tu pick.
+      </div>
+      <div class="apuesta-pts">
+        <div class="apt"><div class="n" style="color:var(--az);">1</div><div class="l">pt por ganador</div></div>
+        <div class="apt"><div class="n" style="color:var(--az);">+2</div><div class="l">pts marcador exacto</div></div>
+        <div class="apt"><div class="n" style="color:var(--az);">÷</div><div class="l">empate divide pozo</div></div>
+      </div>
     </div>
 
-    <button class="btn-enter" onclick="goToLogin()">⚽ ENTRAR A LA QUINIELA</button>
+    <div class="divider">Puedes entrar en una o en las dos · $500 por apuesta</div>
+    <button class="btn-enter" onclick="irLogin()">⚽ ENTRAR A LA QUINIELA</button>
   </div>
 </div>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div class="screen" id="slg">
   <div class="lb">
     <div class="ltitle">QUINIELA 2026</div>
-    <div class="lsub2">Entra con tu cuenta o regístrate</div>
+    <div class="lsub">Entra o crea tu cuenta</div>
     <div class="tabs">
       <div class="tab active" id="tlg" onclick="swTab('lg')">Entrar</div>
       <div class="tab" id="trg" onclick="swTab('rg')">Registrarse</div>
@@ -316,11 +298,11 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
       <div class="err" id="rerr"></div>
       <button class="btn" id="btnrg" onclick="doReg()">🎯 CREAR CUENTA</button>
     </div>
-    <div class="back-link" onclick="goBack()">← Volver a ver las modalidades</div>
+    <div class="back-link" onclick="irBienvenida()">← Ver las apuestas</div>
   </div>
 </div>
 
-<!-- ══ MAIN ══ -->
+<!-- MAIN -->
 <div class="screen" id="smain">
   <div class="topbar">
     <span class="tbtitle">🏆 MUNDIAL 2026</span>
@@ -330,40 +312,48 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
     </div>
   </div>
 
-  <div class="mod-switcher">
-    <div class="mod-btn active m1" id="mbtn1" onclick="switchMod(1)">🗂 MODALIDAD 1 — BRACKET</div>
-    <div class="mod-btn m2" id="mbtn2" onclick="switchMod(2)">⚡ MODALIDAD 2 — PARTIDO A PARTIDO</div>
+  <div class="apuesta-selector">
+    <div class="sel-btn active a1" id="sbtn1" onclick="switchApuesta(1)">
+      <div class="sel-btn-icon">🏆</div>
+      <div class="sel-btn-title">BRACKET</div>
+      <div class="sel-btn-price">$500</div>
+    </div>
+    <div class="sel-btn" id="sbtn2" onclick="switchApuesta(2)">
+      <div class="sel-btn-icon">⚡</div>
+      <div class="sel-btn-title">SEMANA A SEMANA</div>
+      <div class="sel-btn-price">$500</div>
+    </div>
   </div>
 
-  <!-- MOD 1 TABS -->
-  <div id="mod1-tabs">
+  <!-- APUESTA 1 -->
+  <div id="apuesta1">
     <div class="navtabs">
       <div class="ntab active" onclick="showT1('bracket')">⚽ Mi Bracket</div>
-      <div class="ntab" onclick="showT1('picks1')">🎯 Mis Picks</div>
-      <div class="ntab" onclick="showT1('leader1')">🏅 Clasificación</div>
-      <div class="ntab" onclick="showT1('todos1')">👥 Picks de Todos</div>
+      <div class="ntab" onclick="showT1('mis1')">🎯 Mis Picks</div>
+      <div class="ntab" onclick="showT1('tabla1')">🏅 Clasificación</div>
+      <div class="ntab" onclick="showT1('todos1')">👥 Todos</div>
     </div>
     <div class="tcon active" id="t1-bracket">
       <div class="bwrap"><div class="bcont" id="bcont"></div></div>
       <div class="savebar">
-        <div class="sbinfo">Picks: <strong id="pcnt">0</strong> / <strong id="ptot">21</strong></div>
-        <button class="bsave" id="bsave1" onclick="savePicks1()">💾 Guardar Quiniela</button>
+        <div class="sbinfo">Picks: <strong id="pcnt">0</strong>/<strong id="ptot">0</strong></div>
+        <button class="bsave" id="bsave1" onclick="guardarBracket()">💾 Guardar</button>
       </div>
     </div>
-    <div class="tcon" id="t1-picks1"><div class="lwrap" id="picks1-content"></div></div>
-    <div class="tcon" id="t1-leader1"><div class="lwrap" id="leader1-content"></div></div>
+    <div class="tcon" id="t1-mis1"><div class="lwrap" id="mis1-content"></div></div>
+    <div class="tcon" id="t1-tabla1"><div class="lwrap" id="tabla1-content"></div></div>
     <div class="tcon" id="t1-todos1"><div class="todos-wrap" id="todos1-content"></div></div>
   </div>
 
-  <!-- MOD 2 TABS -->
-  <div id="mod2-tabs" style="display:none">
+  <!-- APUESTA 2 -->
+  <div id="apuesta2" style="display:none">
     <div class="navtabs">
-      <div class="ntab active m2" onclick="showT2('partidos')">⚡ Partidos</div>
-      <div class="ntab m2" onclick="showT2('leader2')">🏅 Clasificación</div>
-      <div class="ntab m2" onclick="showT2('todos2')">👥 Picks de Todos</div>
+      <div class="ntab active az" onclick="showT2('partidos')">⚡ Partidos</div>
+      <div class="ntab" onclick="showT2('tabla2')">🏅 Clasificación</div>
+      <div class="ntab" onclick="showT2('todos2')">👥 Todos</div>
     </div>
-    <div class="tcon active" id="t2-partidos"><div class="m2wrap" id="m2-partidos-content"></div></div>
-    <div class="tcon" id="t2-leader2"><div class="lwrap" id="leader2-content"></div></div>
+    <div class="tcon active" id="t2-partidos"><div class="m2wrap" id="partidos-content"></div></div>
+    <div class="tcon" id="t2-tabla2"><div class="lwrap" id="tabla2-content"></div></div>
     <div class="tcon" id="t2-todos2"><div class="todos-wrap" id="todos2-content"></div></div>
   </div>
 </div>
@@ -372,21 +362,19 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 <div class="overlay" id="overlay" onclick="closeMod(event)">
   <div class="mbox" onclick="event.stopPropagation()">
     <div class="mtitle">ELIGE TU PICK</div>
-    <div class="msub2" id="msub"></div>
-    <div class="msec">¿Quién gana? (1 punto)</div>
+    <div class="msub" id="msub"></div>
+    <div class="msec">¿Quién gana? — 1 punto</div>
     <div class="mopts" id="mopts"></div>
-    <div class="msec">Marcador exacto (+2 puntos extra — opcional)</div>
-    <div class="score-row">
-      <label id="slbl1">Eq 1</label>
-      <div class="score-inputs">
-        <input type="number" id="sg1" min="0" max="20" placeholder="0" oninput="updPrev()"/>
-        <span class="score-sep">—</span>
-        <input type="number" id="sg2" min="0" max="20" placeholder="0" oninput="updPrev()"/>
-      </div>
-      <label id="slbl2">Eq 2</label>
+    <div class="msec">Marcador exacto — +2 puntos (opcional)</div>
+    <div class="msinp">
+      <label id="ml1">Eq 1</label>
+      <input type="number" id="mg1" min="0" max="20" placeholder="0" oninput="updPrev()"/>
+      <span>—</span>
+      <input type="number" id="mg2" min="0" max="20" placeholder="0" oninput="updPrev()"/>
+      <label id="ml2">Eq 2</label>
     </div>
-    <div class="pts-prev" id="pts-prev">Elige ganador para ver puntos posibles</div>
-    <button class="mbtn" onclick="confirmPick()">✅ GUARDAR PICK</button>
+    <div class="pts-prev" id="pts-prev">Elige ganador primero</div>
+    <button class="mbtn" onclick="confirmarPick()">✅ GUARDAR PICK</button>
     <button class="bcnl" onclick="closeMod()">Cancelar</button>
   </div>
 </div>
@@ -394,10 +382,22 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 <div class="toast" id="toast"></div>
 
 <script>
+// ══ SUPABASE — carga lazy ══
 const SURL='https://pjmshrksqlwirtlknwkv.supabase.co';
 const SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqbXNocmtzcWx3aXJ0bGtud2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NjAzNzAsImV4cCI6MjA5ODQzNjM3MH0.e6klzBUMX7FtUxMfRLwS4a1cKRM_OdkERrmfOb4XVIM';
-const db=supabase.createClient(SURL,SKEY);
+let db=null;
 
+function getDb(){
+  if(!db){
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+    document.head.appendChild(s);
+    return new Promise(res=>{s.onload=()=>{db=supabase.createClient(SURL,SKEY);res(db);}});
+  }
+  return Promise.resolve(db);
+}
+
+// ══ EQUIPOS ══
 const TM={
   GER:{n:'Alemania',f:'🇩🇪'},PAR:{n:'Paraguay',f:'🇵🇾'},FRA:{n:'Francia',f:'🇫🇷'},SWE:{n:'Suecia',f:'🇸🇪'},
   RSA:{n:'Sudáfrica',f:'🇿🇦'},CAN:{n:'Canadá',f:'🇨🇦'},NED:{n:'P.Bajos',f:'🇳🇱'},MAR:{n:'Marruecos',f:'🇲🇦'},
@@ -409,9 +409,7 @@ const TM={
   SUI:{n:'Suiza',f:'🇨🇭'},ALG:{n:'Argelia',f:'🇩🇿'},COL:{n:'Colombia',f:'🇨🇴'},GHA:{n:'Ghana',f:'🇬🇭'}
 };
 
-// Partidos ya finalizados — NO puntúan en Modalidad 1
-const FINISHED_IDS=['P74','P77','P73','P75','P76','P78'];
-
+const FINISHED=['P74','P77','P73','P75','P76','P78'];
 const R16L=[
   {id:'P74',t1:'GER',t2:'PAR',d:'Finalizado',s1:3,s2:4,w:'PAR',done:true},
   {id:'P77',t1:'FRA',t2:'SWE',d:'Finalizado',s1:3,s2:0,w:'FRA',done:true},
@@ -440,33 +438,16 @@ const SF2L={id:'P101',from:['P97','P98'],d:'14/07 13:00'};
 const SF2R={id:'P102',from:['P99','P100'],d:'15/07 13:00'};
 const FINAL={id:'P104',from:['P101','P102'],d:'19/07 13:00'};
 const ALL=[...R16L,...R16R,...QFL,...QFR,...SFL,...SFR,SF2L,SF2R,FINAL];
-const TOTAL=ALL.length;
 
-let cu=null,myPicks1={},myPicks2={},currentMod=1,currentModalMatch=null,selWin=null,m2Matches=[];
+let cu=null,picks1={},picks2={},m2Matches=[],selWin=null,curMatch=null;
 
-// ── INIT ──
-async function init(){
-  const saved=localStorage.getItem('wc26_user');
-  if(saved){
-    cu=JSON.parse(saved);
-    await Promise.all([loadPicks1(),loadPicks2()]);
-    showMain();
-  } else {
-    document.getElementById('loading').style.display='none';
-    document.getElementById('swelcome').classList.add('active');
-  }
-}
+// ══ NAVEGACIÓN ══
+function irLogin(){show('slg');hide('swelcome');}
+function irBienvenida(){show('swelcome');hide('slg');}
 
-function goToLogin(){
-  document.getElementById('swelcome').classList.remove('active');
-  document.getElementById('slg').classList.add('active');
-}
-function goBack(){
-  document.getElementById('slg').classList.remove('active');
-  document.getElementById('swelcome').classList.add('active');
-}
+function show(id){document.getElementById(id).classList.add('active');}
+function hide(id){document.getElementById(id).classList.remove('active');}
 
-// ── AUTH ──
 function swTab(t){
   document.getElementById('tlg').classList.toggle('active',t==='lg');
   document.getElementById('trg').classList.toggle('active',t==='rg');
@@ -474,19 +455,22 @@ function swTab(t){
   document.getElementById('frg').style.display=t==='rg'?'block':'none';
 }
 
+// ══ AUTH ══
 async function doLogin(){
   const u=document.getElementById('lu').value.trim().toLowerCase();
   const p=document.getElementById('lp').value;
   const e=document.getElementById('lerr');
   if(!u||!p){showErr(e,'Completa todos los campos');return;}
-  const btn=document.getElementById('btnlg');btn.disabled=true;btn.textContent='Entrando...';
+  const btn=document.getElementById('btnlg');
+  btn.disabled=true;btn.innerHTML='<span class="spinner-sm"></span>';
   try{
-    const{data,error}=await db.from('participants').select('*').eq('username',u).eq('password_hash',btoa(p)).single();
+    const d=await getDb();
+    const{data,error}=await d.from('participants').select('*').eq('username',u).eq('password_hash',btoa(p)).single();
     if(error||!data){showErr(e,'Usuario o contraseña incorrectos');btn.disabled=false;btn.textContent='⚽ ENTRAR';return;}
-    cu=data;localStorage.setItem('wc26_user',JSON.stringify(cu));
-    await Promise.all([loadPicks1(),loadPicks2()]);
-    showMain();
-  }catch(ex){showErr(e,'Error de conexión');btn.disabled=false;btn.textContent='⚽ ENTRAR';}
+    cu=data;localStorage.setItem('wc26_u',JSON.stringify(cu));
+    await cargarTodo();
+    mostrarMain();
+  }catch(ex){showErr(e,'Error: '+ex.message);btn.disabled=false;btn.textContent='⚽ ENTRAR';}
 }
 
 async function doReg(){
@@ -496,337 +480,293 @@ async function doReg(){
   const e=document.getElementById('rerr');
   if(!name||!u||!p){showErr(e,'Completa todos los campos');return;}
   if(p.length<3){showErr(e,'Contraseña muy corta');return;}
-  const btn=document.getElementById('btnrg');btn.disabled=true;btn.textContent='Creando...';
+  const btn=document.getElementById('btnrg');
+  btn.disabled=true;btn.innerHTML='<span class="spinner-sm"></span>';
   try{
-    const{data:ex}=await db.from('participants').select('id').eq('username',u).maybeSingle();
-    if(ex){showErr(e,'Ese usuario ya existe');btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';return;}
-    const{data,error}=await db.from('participants').insert([{username:u,display_name:name,password_hash:btoa(p),registered_at:new Date().toISOString(),paid_m1:false,paid_m2:false,score_m1:0,score_m2:0}]).select().single();
+    const d=await getDb();
+    const{data:ex2}=await d.from('participants').select('id').eq('username',u).maybeSingle();
+    if(ex2){showErr(e,'Ese usuario ya existe');btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';return;}
+    const{data,error}=await d.from('participants').insert([{
+      username:u,display_name:name,password_hash:btoa(p),
+      registered_at:new Date().toISOString(),
+      paid_m1:false,paid_m2:false,score_m1:0,score_m2:0
+    }]).select().single();
     if(error){showErr(e,'Error: '+error.message);btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';return;}
-    cu=data;localStorage.setItem('wc26_user',JSON.stringify(cu));
-    myPicks1={};myPicks2={};
-    prePopulate1();showMain();
+    cu=data;localStorage.setItem('wc26_u',JSON.stringify(cu));
+    picks1={};picks2={};m2Matches=[];
+    mostrarMain();
   }catch(ex){showErr(e,'Error: '+ex.message);btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';}
 }
 
 function doLogout(){
-  cu=null;myPicks1={};myPicks2={};localStorage.removeItem('wc26_user');
-  document.getElementById('smain').classList.remove('active');
-  document.getElementById('swelcome').classList.add('active');
+  cu=null;picks1={};picks2={};
+  localStorage.removeItem('wc26_u');
+  hide('smain');show('swelcome');
 }
 
 function showErr(el,msg){el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',3000);}
 
-// ── CARGA PICKS ──
-async function loadPicks1(){
-  try{
-    const{data}=await db.from('picks_m1').select('*').eq('participant_id',cu.id);
-    myPicks1={};
-    if(data)data.forEach(p=>myPicks1[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
-    prePopulate1();
-  }catch(ex){myPicks1={};prePopulate1();}
+async function cargarTodo(){
+  const d=await getDb();
+  const[r1,r2,rm]=await Promise.all([
+    d.from('picks_m1').select('*').eq('participant_id',cu.id),
+    d.from('picks_m2').select('*').eq('participant_id',cu.id),
+    d.from('matches_m2').select('*').order('match_date',{ascending:true})
+  ]);
+  picks1={};
+  if(r1.data)r1.data.forEach(p=>picks1[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
+  picks2={};
+  if(r2.data)r2.data.forEach(p=>picks2[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
+  m2Matches=rm.data||[];
 }
 
-async function loadPicks2(){
-  try{
-    const{data}=await db.from('picks_m2').select('*').eq('participant_id',cu.id);
-    myPicks2={};
-    if(data)data.forEach(p=>myPicks2[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
-  }catch(ex){myPicks2={};}
-}
-
-function prePopulate1(){
-  // Los partidos finalizados se pre-populan pero NO puntúan
-  ALL.forEach(m=>{
-    if(m.done&&!myPicks1[m.id])myPicks1[m.id]={winner:m.w,g1:m.s1,g2:m.s2,auto:true};
-  });
-}
-
-function showMain(){
-  document.getElementById('loading').style.display='none';
-  document.getElementById('slg').classList.remove('active');
-  document.getElementById('swelcome').classList.remove('active');
-  document.getElementById('smain').classList.add('active');
+function mostrarMain(){
+  hide('slg');hide('swelcome');show('smain');
   document.getElementById('uname').textContent=cu.display_name||cu.username;
   document.getElementById('uav').textContent=(cu.display_name||cu.username)[0].toUpperCase();
   buildBracket();
-  updateCount();
-  loadM2Matches();
+  updCount();
+  renderPartidos();
 }
 
-// ── MOD SWITCHER ──
-function switchMod(n){
-  currentMod=n;
-  document.getElementById('mbtn1').classList.toggle('active',n===1);
-  document.getElementById('mbtn1').classList.toggle('m1',n===1);
-  document.getElementById('mbtn2').classList.toggle('active',n===2);
-  document.getElementById('mbtn2').classList.toggle('m2',n===2);
-  document.getElementById('mod1-tabs').style.display=n===1?'block':'none';
-  document.getElementById('mod2-tabs').style.display=n===2?'block':'none';
+// ══ CHECK SESIÓN AL CARGAR ══
+window.addEventListener('load',async()=>{
+  const saved=localStorage.getItem('wc26_u');
+  if(saved){
+    cu=JSON.parse(saved);
+    try{
+      await cargarTodo();
+      mostrarMain();
+    }catch(ex){
+      localStorage.removeItem('wc26_u');
+      cu=null;
+    }
+  }
+  // Si no hay sesión, la pantalla de bienvenida ya está visible (active por defecto)
+});
+
+// ══ SWITCH APUESTA ══
+function switchApuesta(n){
+  document.getElementById('sbtn1').classList.toggle('active',n===1);
+  document.getElementById('sbtn1').classList.toggle('a1',n===1);
+  document.getElementById('sbtn2').classList.toggle('active',n===2);
+  document.getElementById('sbtn2').classList.toggle('a2',n===2);
+  document.getElementById('apuesta1').style.display=n===1?'block':'none';
+  document.getElementById('apuesta2').style.display=n===2?'block':'none';
+  if(n===2)renderPartidos();
 }
 
-// ── TABS M1 ──
+// ══ TABS A1 ══
 function showT1(name){
-  document.querySelectorAll('#mod1-tabs .ntab').forEach((t,i)=>{
-    t.classList.toggle('active',['bracket','picks1','leader1','todos1'][i]===name);
-  });
-  document.querySelectorAll('#mod1-tabs .tcon').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#apuesta1 .ntab').forEach((t,i)=>t.classList.toggle('active',['bracket','mis1','tabla1','todos1'][i]===name));
+  document.querySelectorAll('#apuesta1 .tcon').forEach(c=>c.classList.remove('active'));
   document.getElementById('t1-'+name).classList.add('active');
-  if(name==='picks1')buildPicks1();
-  if(name==='leader1')buildLeader1();
+  if(name==='mis1')buildMis1();
+  if(name==='tabla1')buildTabla1();
   if(name==='todos1')buildTodos1();
 }
 
-// ── TABS M2 ──
+// ══ TABS A2 ══
 function showT2(name){
-  document.querySelectorAll('#mod2-tabs .ntab').forEach((t,i)=>{
-    t.classList.toggle('active',['partidos','leader2','todos2'][i]===name);
-  });
-  document.querySelectorAll('#mod2-tabs .tcon').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#apuesta2 .ntab').forEach((t,i)=>t.classList.toggle('active',['partidos','tabla2','todos2'][i]===name));
+  document.querySelectorAll('#apuesta2 .tcon').forEach(c=>c.classList.remove('active'));
   document.getElementById('t2-'+name).classList.add('active');
-  if(name==='leader2')buildLeader2();
+  if(name==='tabla2')buildTabla2();
   if(name==='todos2')buildTodos2();
 }
 
-// ══════════════════════════════════════
-// MODALIDAD 1 — BRACKET
-// ══════════════════════════════════════
-function resolve1(id){return myPicks1[id]?myPicks1[id].winner:null;}
-function getTeams(m){
+// ══ BRACKET A1 ══
+function res(id){return picks1[id]?picks1[id].winner:null;}
+function gt(m){
   if(m.t1!==undefined)return{t1:m.t1||null,t2:m.t2||null};
-  if(m.from)return{t1:resolve1(m.from[0]),t2:resolve1(m.from[1])};
+  if(m.from)return{t1:res(m.from[0]),t2:res(m.from[1])};
   return{t1:null,t2:null};
 }
 
-function cardHTML(m){
-  const{t1,t2}=getTeams(m);
+function cardH(m){
+  const{t1,t2}=gt(m);
   const T1=t1?TM[t1]:null,T2=t2?TM[t2]:null;
-  const pick=myPicks1[m.id];
+  const fin=FINISHED.includes(m.id);
+  const pick=picks1[m.id];
   const myW=pick&&!pick.auto?pick.winner:null;
-  const w1=m.w===m.t1;const w2=m.w===m.t2;
-  const myW1=myW&&myW===t1;const myW2=myW&&myW===t2;
-  const isFinished=FINISHED_IDS.includes(m.id);
-  const canClick=!isFinished&&(T1||T2);
-  let pickBadge='';
-  if(myW){const MT=TM[myW];const sg=pick.g1!=null&&pick.g2!=null?` ${pick.g1}-${pick.g2}`:'';pickBadge=`<div class="mypick">${MT.f} ${MT.n}${sg}</div>`;}
-  return `<div class="mcard${canClick?' clickable':''}${isFinished?' closed':''}"${canClick?` onclick="openMod('${m.id}')"`:''}>`+
-    `<div class="mdate">${isFinished?'✅ Finalizado — no puntúa':m.d||'—'}</div>`+
-    `<div class="tslot${(m.w&&w1)||(myW1)?' win':''}">`+
-      `<span class="tflag">${T1?T1.f:'🏳️'}</span>`+
-      (T1?`<span class="tname">${T1.n}</span>`:`<span class="tempty">Por definir</span>`)+
-      (m.s1!=null?`<span class="tscore">${m.s1}</span>`:'')+
-    `</div>`+
-    `<div class="tslot${(m.w&&w2)||(myW2)?' win':''}">`+
-      `<span class="tflag">${T2?T2.f:'🏳️'}</span>`+
-      (T2?`<span class="tname">${T2.n}</span>`:`<span class="tempty">Por definir</span>`)+
-      (m.s2!=null?`<span class="tscore">${m.s2}</span>`:'')+
-    `</div>`+
-    pickBadge+`</div>`;
+  const w1=m.w===m.t1,w2=m.w===m.t2;
+  const mw1=myW&&myW===t1,mw2=myW&&myW===t2;
+  const canClick=!fin&&(T1||T2);
+  let badge='';
+  if(myW){const MT=TM[myW];const sc=pick.g1!=null&&pick.g2!=null?` ${pick.g1}-${pick.g2}`:'';badge=`<div class="mypick">${MT.f} ${MT.n}${sc}</div>`;}
+  return`<div class="mcard${canClick?' clickable':''}${fin?' nopuntos':''}"${canClick?` onclick="openMod('${m.id}')"`:''}>`+
+    `<div class="mdate">${fin?'✅ Ya jugado — no puntúa':m.d||'—'}</div>`+
+    `<div class="tslot${(w1||mw1)?' win':''}">${T1?`<span class="tflag">${T1.f}</span><span class="tname">${T1.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s1!=null?`<span class="tscore">${m.s1}</span>`:''}</div>`+
+    `<div class="tslot${(w2||mw2)?' win':''}">${T2?`<span class="tflag">${T2.f}</span><span class="tname">${T2.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s2!=null?`<span class="tscore">${m.s2}</span>`:''}</div>`+
+    badge+`</div>`;
 }
 
-function col(label,matches){
-  return `<div class="rcol"><div class="rhdr">${label}</div><div class="rmatches">`+
-    matches.map(m=>`<div class="mwrap">${cardHTML({...m,...getTeams(m)})}</div>`).join('')+`</div></div>`;
+function col(lbl,ms){
+  return`<div class="rcol"><div class="rhdr">${lbl}</div><div class="rmatches">${ms.map(m=>`<div class="mwrap">${cardH({...m,...gt(m)})}</div>`).join('')}</div></div>`;
 }
 
 function buildBracket(){
   document.getElementById('bcont').innerHTML=
     col('16avos',R16L)+col('Octavos',QFL)+col('Cuartos',SFL)+
-    `<div class="rcol"><div class="rhdr">Semifinal</div><div class="rmatches"><div class="mwrap">${cardHTML({...SF2L,...getTeams(SF2L)})}</div></div></div>`+
-    `<div class="rcol" style="min-width:145px;"><div class="rhdr" style="color:var(--or);">⚽ FINAL</div><div class="rmatches"><div class="mwrap">${cardHTML({...FINAL,...getTeams(FINAL)})}</div></div></div>`+
-    `<div class="rcol"><div class="rhdr">Semifinal</div><div class="rmatches"><div class="mwrap">${cardHTML({...SF2R,...getTeams(SF2R)})}</div></div></div>`+
+    `<div class="rcol"><div class="rhdr">Semifinal</div><div class="rmatches"><div class="mwrap">${cardH({...SF2L,...gt(SF2L)})}</div></div></div>`+
+    `<div class="rcol" style="min-width:145px;"><div class="rhdr" style="color:var(--or);">⚽ FINAL</div><div class="rmatches"><div class="mwrap">${cardH({...FINAL,...gt(FINAL)})}</div></div></div>`+
+    `<div class="rcol"><div class="rhdr">Semifinal</div><div class="rmatches"><div class="mwrap">${cardH({...SF2R,...gt(SF2R)})}</div></div></div>`+
     col('Cuartos',SFR)+col('Octavos',QFR)+col('16avos',R16R);
 }
 
-function updateCount(){
-  const done=Object.keys(myPicks1).filter(k=>!myPicks1[k].auto).length;
-  const total=ALL.filter(m=>!FINISHED_IDS.includes(m.id)).length;
+function updCount(){
+  const valid=ALL.filter(m=>!FINISHED.includes(m.id));
+  const done=valid.filter(m=>picks1[m.id]&&!picks1[m.id].auto).length;
   document.getElementById('pcnt').textContent=done;
-  document.getElementById('ptot').textContent=total;
+  document.getElementById('ptot').textContent=valid.length;
 }
 
-// ── MODAL M1 ──
-function openMod(matchId){
-  const m=ALL.find(x=>x.id===matchId);if(!m)return;
-  const{t1,t2}=getTeams(m);
+// ══ MODAL ══
+function openMod(id){
+  const m=ALL.find(x=>x.id===id);if(!m)return;
+  const{t1,t2}=gt(m);
   const T1=t1?TM[t1]:null,T2=t2?TM[t2]:null;
-  currentModalMatch=matchId;
-  const existing=myPicks1[matchId];
-  selWin=existing&&!existing.auto?existing.winner:null;
+  curMatch=id;
+  const ex=picks1[id];
+  selWin=ex&&!ex.auto?ex.winner:null;
   document.getElementById('msub').textContent=`${T1?T1.n:'?'} vs ${T2?T2.n:'?'}`;
-  document.getElementById('slbl1').textContent=T1?T1.n:'Eq 1';
-  document.getElementById('slbl2').textContent=T2?T2.n:'Eq 2';
-  document.getElementById('sg1').value=existing&&existing.g1!=null&&!existing.auto?existing.g1:'';
-  document.getElementById('sg2').value=existing&&existing.g2!=null&&!existing.auto?existing.g2:'';
+  document.getElementById('ml1').textContent=T1?T1.n:'Eq1';
+  document.getElementById('ml2').textContent=T2?T2.n:'Eq2';
+  document.getElementById('mg1').value=ex&&ex.g1!=null&&!ex.auto?ex.g1:'';
+  document.getElementById('mg2').value=ex&&ex.g2!=null&&!ex.auto?ex.g2:'';
   let h='';
-  if(T1)h+=`<div class="mopt${selWin===t1?' sel':''}" id="opt_${t1}" onclick="pickWin('${t1}')"><span class="mfl">${T1.f}</span><span>${T1.n}</span></div>`;
-  if(T2)h+=`<div class="mopt${selWin===t2?' sel':''}" id="opt_${t2}" onclick="pickWin('${t2}')"><span class="mfl">${T2.f}</span><span>${T2.n}</span></div>`;
-  if(!T1&&!T2)h=`<p style="text-align:center;color:var(--gr);padding:12px;font-size:13px;">Completa primero rondas anteriores</p>`;
+  if(T1)h+=`<div class="mopt${selWin===t1?' sel':''}" id="op_${t1}" onclick="pickW('${t1}')">${T1.f} ${T1.n}</div>`;
+  if(T2)h+=`<div class="mopt${selWin===t2?' sel':''}" id="op_${t2}" onclick="pickW('${t2}')">${T2.f} ${T2.n}</div>`;
+  if(!T1&&!T2)h=`<p style="color:var(--gr);padding:10px;text-align:center;font-size:13px;">Completa rondas anteriores</p>`;
   document.getElementById('mopts').innerHTML=h;
   updPrev();
   document.getElementById('overlay').classList.add('open');
 }
 
-function pickWin(w){
+function pickW(w){
   selWin=w;
-  document.querySelectorAll('.mopt').forEach(el=>el.classList.remove('sel'));
-  const el=document.getElementById('opt_'+w);if(el)el.classList.add('sel');
+  document.querySelectorAll('.mopt').forEach(e=>e.classList.remove('sel'));
+  const el=document.getElementById('op_'+w);if(el)el.classList.add('sel');
   updPrev();
 }
 
 function updPrev(){
-  const g1=document.getElementById('sg1').value;
-  const g2=document.getElementById('sg2').value;
-  const prev=document.getElementById('pts-prev');
-  if(!selWin){prev.textContent='Elige ganador para ver puntos posibles';return;}
-  if(g1!==''&&g2!=='')prev.textContent='✅ Ganador (1 pt) + si aciertas marcador exacto +2 pts = hasta 3 pts';
-  else prev.textContent='✅ Si aciertas ganador: 1 pt · Agrega marcador para optar por +2 pts';
+  const g1=document.getElementById('mg1').value;
+  const g2=document.getElementById('mg2').value;
+  const p=document.getElementById('pts-prev');
+  if(!selWin){p.textContent='Elige ganador primero';return;}
+  p.textContent=g1!==''&&g2!==''?'✅ Ganador (1pt) + marcador exacto (+2pts) = hasta 3pts':'✅ Acertar ganador = 1pt · Agrega marcador para +2pts extra';
 }
 
-function confirmPick(){
-  if(!selWin){showToast('❌ Elige un ganador primero');return;}
-  const g1v=document.getElementById('sg1').value;
-  const g2v=document.getElementById('sg2').value;
-  const g1=g1v!==''?parseInt(g1v):null;
-  const g2=g2v!==''?parseInt(g2v):null;
-  myPicks1[currentModalMatch]={winner:selWin,g1,g2};
-  closeMod();buildBracket();updateCount();
+function confirmarPick(){
+  if(!selWin){showToast('❌ Elige un ganador');return;}
+  const g1=document.getElementById('mg1').value;
+  const g2=document.getElementById('mg2').value;
+  picks1[curMatch]={winner:selWin,g1:g1!==''?parseInt(g1):null,g2:g2!==''?parseInt(g2):null};
+  closeMod();buildBracket();updCount();
 }
 
 function closeMod(e){
   if(e&&e.target!==document.getElementById('overlay'))return;
   document.getElementById('overlay').classList.remove('open');
-  currentModalMatch=null;selWin=null;
+  curMatch=null;selWin=null;
 }
 
-// ── GUARDAR M1 ──
-async function savePicks1(){
+// ══ GUARDAR A1 ══
+async function guardarBracket(){
   if(!cu)return;
-  const btn=document.getElementById('bsave1');btn.disabled=true;btn.textContent='Guardando...';
+  const btn=document.getElementById('bsave1');
+  btn.disabled=true;btn.textContent='Guardando...';
   try{
-    const upserts=Object.entries(myPicks1)
-      .filter(([id,pick])=>!pick.auto)
-      .map(([match_id,pick])=>({participant_id:cu.id,match_id,pick_team:pick.winner,score1:pick.g1!=null?pick.g1:null,score2:pick.g2!=null?pick.g2:null,updated_at:new Date().toISOString()}));
-    if(upserts.length>0)await db.from('picks_m1').upsert(upserts,{onConflict:'participant_id,match_id'});
-    await calcScore1();
+    const d=await getDb();
+    const ups=Object.entries(picks1).filter(([,p])=>!p.auto).map(([mid,p])=>({
+      participant_id:cu.id,match_id:mid,pick_team:p.winner,
+      score1:p.g1!=null?p.g1:null,score2:p.g2!=null?p.g2:null,
+      updated_at:new Date().toISOString()
+    }));
+    if(ups.length>0)await d.from('picks_m1').upsert(ups,{onConflict:'participant_id,match_id'});
+    // Calcular score
+    let sc=0;
+    ALL.forEach(m=>{
+      if(!m.w||FINISHED.includes(m.id))return;
+      const p=picks1[m.id];if(!p||p.auto)return;
+      if(p.winner===m.w){sc+=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)sc+=2;}
+    });
+    await d.from('participants').update({score_m1:sc}).eq('id',cu.id);
+    cu.score_m1=sc;localStorage.setItem('wc26_u',JSON.stringify(cu));
     showToast('✅ Bracket guardado — visible para todos');
-    updateCount();
+    updCount();
   }catch(ex){showToast('❌ Error: '+ex.message);}
-  btn.disabled=false;btn.textContent='💾 Guardar Quiniela';
+  btn.disabled=false;btn.textContent='💾 Guardar';
 }
 
-async function calcScore1(){
-  let score=0;
-  ALL.forEach(m=>{
-    if(!m.w||FINISHED_IDS.includes(m.id))return;
-    const pick=myPicks1[m.id];
-    if(!pick||pick.auto)return;
-    if(pick.winner===m.w){
-      score+=1;
-      if(pick.g1!=null&&pick.g2!=null&&m.s1!=null&&m.s2!=null&&parseInt(pick.g1)===m.s1&&parseInt(pick.g2)===m.s2)score+=2;
-    }
-  });
-  await db.from('participants').update({score_m1:score}).eq('id',cu.id);
-  cu.score_m1=score;localStorage.setItem('wc26_user',JSON.stringify(cu));
-}
-
-// ── PICKS VIEW M1 ──
-function buildPicks1(){
-  const validMatches=ALL.filter(m=>!FINISHED_IDS.includes(m.id));
-  const done=validMatches.filter(m=>myPicks1[m.id]&&!myPicks1[m.id].auto).length;
-  const pct=Math.round(done/validMatches.length*100);
-  const rounds=[
-    {lbl:'Octavos (desde hoy)',ms:ALL.filter(m=>m.t1&&!FINISHED_IDS.includes(m.id))},
-    {lbl:'Cuartos de Final',ms:[...QFL,...QFR]},
-    {lbl:'Semifinales',ms:[...SFL,...SFR]},
-    {lbl:'Fase Final',ms:[SF2L,SF2R,FINAL]},
-  ];
-  let h=`<div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--or);margin-bottom:12px;">MIS PICKS M1</div>`+
+// ══ MIS PICKS A1 ══
+function buildMis1(){
+  const valid=ALL.filter(m=>!FINISHED.includes(m.id));
+  const done=valid.filter(m=>picks1[m.id]&&!picks1[m.id].auto).length;
+  const pct=Math.round(done/valid.length*100);
+  let h=`<div class="cl-header or">MIS PICKS</div>`+
     `<div style="background:var(--vc);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:16px;">`+
     `<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;color:var(--gr);"><span>Progreso</span><span style="color:var(--or);font-weight:600;">${pct}%</span></div>`+
-    `<div style="height:5px;background:var(--bd);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--vcl),var(--or));border-radius:3px;"></div></div>`+
-    `</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;">`;
-  rounds.forEach(r=>{
-    h+=`<div style="grid-column:1/-1;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gr);padding:6px 0 3px;border-bottom:1px solid var(--bd);">${r.lbl}</div>`;
-    r.ms.forEach(m=>{
-      const pick=myPicks1[m.id];
-      const isPick=pick&&!pick.auto;
-      const TMP=isPick?TM[pick.winner]:null;
-      const{t1,t2}=getTeams(m);
-      const T1=t1?TM[t1]:null,T2=t2?TM[t2]:null;
-      let ptsEl='';
-      if(m.w&&!FINISHED_IDS.includes(m.id)&&pick&&!pick.auto){
-        let pts=0;
-        if(pick.winner===m.w){pts=1;if(pick.g1!=null&&pick.g2!=null&&parseInt(pick.g1)===m.s1&&parseInt(pick.g2)===m.s2)pts=3;}
-        ptsEl=`<div style="font-size:10px;color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div>`;
-      }
-      h+=`<div style="background:var(--vc);border:1px solid var(--bd);border-radius:8px;padding:11px;">`+
-        `<div style="font-size:9px;color:var(--gr);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">${m.id}</div>`+
-        `<div style="font-size:10px;color:var(--gr);margin-bottom:6px;">${T1?T1.n:(t1||'?')} vs ${T2?T2.n:(t2||'?')}</div>`+
-        (TMP?`<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;background:rgba(245,197,24,0.08);border-radius:6px;border:1px solid rgba(245,197,24,0.2);"><span style="font-size:16px;">${TMP.f}</span><span style="font-size:12px;font-weight:600;">${TMP.n}</span></div>`:
-             `<div style="padding:6px 8px;font-size:11px;color:var(--gr);font-style:italic;border:1px dashed var(--bd);border-radius:6px;text-align:center;">Sin pick</div>`)+
-        (isPick&&pick.g1!=null&&pick.g2!=null?`<div style="font-size:10px;color:var(--gr);margin-top:4px;text-align:center;">Marcador: ${pick.g1}-${pick.g2}</div>`:'')+
-        ptsEl+`</div>`;
-    });
+    `<div style="height:5px;background:var(--bd);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--vcl),var(--or));border-radius:3px;"></div></div></div>`+
+    `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;">`;
+  valid.forEach(m=>{
+    const p=picks1[m.id];const isPick=p&&!p.auto;
+    const MT=isPick?TM[p.winner]:null;
+    const{t1,t2}=gt(m);const T1=t1?TM[t1]:null,T2=t2?TM[t2]:null;
+    let pts='';
+    if(m.w&&p&&!p.auto){let s=0;if(p.winner===m.w){s=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)s=3;}pts=`<div style="font-size:10px;color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'✅ +'+s+' pts':'❌ 0 pts'}</div>`;}
+    h+=`<div style="background:var(--vc);border:1px solid var(--bd);border-radius:8px;padding:11px;">`+
+      `<div style="font-size:9px;color:var(--gr);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${m.id}</div>`+
+      `<div style="font-size:10px;color:var(--gr);margin-bottom:6px;">${T1?T1.n:'?'} vs ${T2?T2.n:'?'}</div>`+
+      (MT?`<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;background:rgba(245,197,24,0.08);border-radius:6px;border:1px solid rgba(245,197,24,0.2);"><span style="font-size:15px;">${MT.f}</span><span style="font-size:12px;font-weight:600;">${MT.n}</span></div>`:
+          `<div style="padding:6px 8px;font-size:11px;color:var(--gr);font-style:italic;border:1px dashed var(--bd);border-radius:6px;text-align:center;">Sin pick</div>`)+
+      (isPick&&p.g1!=null&&p.g2!=null?`<div style="font-size:10px;color:var(--gr);margin-top:4px;text-align:center;">Marcador: ${p.g1}-${p.g2}</div>`:'')+
+      pts+`</div>`;
   });
-  h+='</div>';
-  document.getElementById('picks1-content').innerHTML=h;
+  h+=`</div>`;
+  document.getElementById('mis1-content').innerHTML=h;
 }
 
-// ── CLASIFICACIÓN M1 ──
-async function buildLeader1(){
-  const el=document.getElementById('leader1-content');
-  el.innerHTML='<div style="color:var(--gr);font-size:13px;">Cargando...</div>';
+// ══ CLASIFICACIÓN A1 ══
+async function buildTabla1(){
+  const el=document.getElementById('tabla1-content');
+  el.innerHTML='<div style="color:var(--gr);">Cargando...</div>';
   try{
-    const{data:users}=await db.from('participants').select('*').order('score_m1',{ascending:false});
-    if(!users||users.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes aún.</p>';return;}
-    const paying=users.filter(u=>u.paid_m1);
-    const pozo=paying.length*500;
-    const maxScore=users[0].score_m1||0;
-    const winners=users.filter(u=>u.score_m1===maxScore&&maxScore>0);
-    const prizeEach=winners.length>1?` (÷${winners.length} = $${Math.floor(pozo/winners.length).toLocaleString()} c/u)`:'';
-    el.innerHTML=`<div class="lhdr m1">CLASIFICACIÓN M1</div>`+
-      `<div class="lsub">Bracket completo · ${paying.length} pagados</div>`+
-      `<div class="pozo-box m1"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${prizeEach||'El que más puntos acumule gana todo'}</div></div>`+
-      `<div class="scoring-row"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pto ganador</div></div><div class="sc-box"><div class="sc-n">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
-      `<div class="podio">`+users.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold':''}">`+
-        `<div class="podpos">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div>`+
-        `<div class="podpts">${p.score_m1||0} pts</div>`+
-        `<div style="font-size:10px;margin-top:3px;color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'✅ Pagado':'❌ Pendiente'}</div>`+
-      `</div>`).join('')+`</div>`+
-      `<div class="rtable">`+users.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}">`+
-        `<div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div>`+
-        `<div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--or)">(tú)</span>':''}</div>`+
-        `<div class="rpts m1">${p.score_m1||0} pts</div>`+
-        `<span class="rpaid" style="color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'✅':'❌'}</span>`+
-      `</div>`).join('')+`</div>`;
-  }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error cargando.</p>';}
+    const d=await getDb();
+    const{data:us}=await d.from('participants').select('*').order('score_m1',{ascending:false});
+    if(!us||us.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes aún.</p>';return;}
+    const paying=us.filter(u=>u.paid_m1).length;
+    const pozo=paying*500;
+    const max=us[0].score_m1||0;
+    const wins=us.filter(u=>u.score_m1===max&&max>0);
+    const div=wins.length>1?` (÷${wins.length} = $${Math.floor(pozo/wins.length).toLocaleString()} c/u)`:'';
+    el.innerHTML=`<div class="cl-header or">CLASIFICACIÓN — BRACKET</div>`+
+      `<div class="pozo or"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${div||'El que más puntos acumule gana todo'}</div></div>`+
+      `<div class="sc-row"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
+      `<div class="podio">${us.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold':''}"><div class="podpos">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div><div class="podpts">${p.score_m1||0} pts</div><div style="font-size:10px;margin-top:3px;color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'✅':'❌'}</div></div>`).join('')}</div>`+
+      `<div class="rtable">${us.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}"><div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div><div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--or)">(tú)</span>':''}</div><div class="rpts">${p.score_m1||0} pts</div><span style="font-size:10px;color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'✅':'❌'}</span></div>`).join('')}</div>`;
+  }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error: '+ex.message+'</p>';}
 }
 
-// ── TODOS M1 ──
+// ══ TODOS A1 ══
 async function buildTodos1(){
   const el=document.getElementById('todos1-content');
-  el.innerHTML='<div style="color:var(--gr);font-size:13px;">Cargando...</div>';
+  el.innerHTML='<div style="color:var(--gr);">Cargando...</div>';
   try{
-    const{data:users}=await db.from('participants').select('*').order('score_m1',{ascending:false});
-    const{data:allPicks}=await db.from('picks_m1').select('*');
-    if(!users||users.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes.</p>';return;}
-    let h='<div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:3px;color:var(--or);margin-bottom:16px;">PICKS DE TODOS — M1</div>';
-    users.forEach(u=>{
-      const upicks=allPicks?allPicks.filter(p=>p.participant_id===u.id):[];
-      const pm={};upicks.forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
-      h+=`<div class="user-picks-card"><div class="upc-header"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div>`+
-        `<div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div>`+
-        `<div style="font-size:11px;color:var(--gr);">${u.paid_m1?'✅ Pagado':'❌ Pendiente'}</div></div>`+
-        `<div class="upc-pts" style="color:var(--or);">${u.score_m1||0} pts</div></div>`+
-        `<div class="upc-grid">`;
-      ALL.filter(m=>!FINISHED_IDS.includes(m.id)).forEach(m=>{
-        const pick=pm[m.id];if(!pick)return;
-        const MT=TM[pick.winner];if(!MT)return;
-        let pts='';
-        if(m.w){let p=0;if(pick.winner===m.w){p=1;if(pick.g1!=null&&pick.g2!=null&&parseInt(pick.g1)===m.s1&&parseInt(pick.g2)===m.s2)p=3;}
-          pts=`<div class="upc-pts2" style="color:${p>0?'#4ade80':'var(--rd)'};">${p>0?'+'+p+'pts':'0pts'}</div>`;}
-        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>`+
-          (pick.g1!=null&&pick.g2!=null?`<div class="upc-score">${pick.g1}-${pick.g2}</div>`:'')+pts+`</div>`;
+    const d=await getDb();
+    const[{data:us},{data:ap}]=await Promise.all([d.from('participants').select('*').order('score_m1',{ascending:false}),d.from('picks_m1').select('*')]);
+    if(!us||us.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes.</p>';return;}
+    const valid=ALL.filter(m=>!FINISHED.includes(m.id));
+    let h=`<div class="cl-header or" style="margin-bottom:16px;">PICKS DE TODOS</div>`;
+    us.forEach(u=>{
+      const pm={};(ap||[]).filter(p=>p.participant_id===u.id).forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
+      h+=`<div class="upc"><div class="upc-hdr"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div><div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div><div style="font-size:11px;color:var(--gr);">${u.paid_m1?'✅ Pagado':'❌ Pendiente'}</div></div><div class="upc-pts-badge" style="color:var(--or);">${u.score_m1||0} pts</div></div><div class="upc-grid">`;
+      valid.forEach(m=>{
+        const p=pm[m.id];if(!p)return;
+        const MT=TM[p.winner];if(!MT)return;
+        let pts='';if(m.w){let s=0;if(p.winner===m.w){s=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)s=3;}pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
+        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null&&p.g2!=null?`<div class="upc-score">${p.g1}-${p.g2}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
     });
@@ -834,206 +774,136 @@ async function buildTodos1(){
   }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error: '+ex.message+'</p>';}
 }
 
-// ══════════════════════════════════════
-// MODALIDAD 2 — PARTIDO A PARTIDO
-// ══════════════════════════════════════
-async function loadM2Matches(){
-  try{
-    const{data}=await db.from('matches_m2').select('*').order('match_date',{ascending:true});
-    m2Matches=data||[];
-    renderM2Partidos();
-  }catch(ex){m2Matches[];renderM2Partidos();}
-}
-
-function isPickOpen(matchDate){
+// ══ PARTIDOS A2 ══
+function isOpen(matchDate){
   if(!matchDate)return false;
   const deadline=new Date(matchDate);
   deadline.setDate(deadline.getDate()-1);
   return new Date()<deadline;
 }
 
-function renderM2Partidos(){
-  const el=document.getElementById('m2-partidos-content');
-  if(m2Matches.length===0){
-    el.innerHTML=`<div class="m2title">PARTIDO A PARTIDO</div>`+
-      `<div class="m2sub">Los partidos aparecerán aquí cuando sean registrados</div>`+
-      `<div class="empty-m2"><div class="ei">⚽</div><p>Aún no hay partidos registrados.<br>El organizador los irá agregando.</p></div>`;
+function renderPartidos(){
+  const el=document.getElementById('partidos-content');
+  if(!m2Matches||m2Matches.length===0){
+    el.innerHTML=`<div class="m2-empty"><div class="ei">⚽</div><p style="font-size:14px;">Los partidos aparecerán aquí<br>cuando el organizador los registre.</p></div>`;
     return;
   }
-  let h=`<div class="m2title">PARTIDO A PARTIDO</div>`+
-    `<div class="m2sub">Tienes hasta 1 día antes de cada partido para apostar</div>`+
-    `<div class="match2-list">`;
+  let h='';
   m2Matches.forEach(m=>{
     const T1=TM[m.team1]||{n:m.team1,f:'🏳️'};
     const T2=TM[m.team2]||{n:m.team2,f:'🏳️'};
-    const open=isPickOpen(m.match_date);
     const done=!!m.result_team;
-    const myPick=myPicks2[m.id];
+    const open=!done&&isOpen(m.match_date);
+    const myP=picks2[m.id];
+    const fecha=m.match_date?new Date(m.match_date).toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):m.label||'—';
     const deadline=m.match_date?new Date(new Date(m.match_date).getTime()-86400000).toLocaleDateString('es-MX',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
-    let statusHTML='';
-    if(done)statusHTML=`<span class="match2-status status-done">✅ Finalizado</span>`;
-    else if(open)statusHTML=`<span class="match2-status status-open">🔓 Abierto hasta ${deadline}</span>`;
-    else statusHTML=`<span class="match2-status status-closed">🔒 Cerrado</span>`;
+    let badge=done?`<span class="badge done">✅ Finalizado</span>`:open?`<span class="badge open">🔓 Cierra ${deadline}</span>`:`<span class="badge closed">🔒 Cerrado</span>`;
     let pickArea='';
     if(done){
-      const RT=TM[m.result_team]||{n:m.result_team,f:'🏳️'};
-      if(myPick){
-        const MT=TM[myPick.winner]||{n:myPick.winner,f:'🏳️'};
-        let pts=0;
-        if(myPick.winner===m.result_team){pts=1;if(myPick.g1!=null&&myPick.g2!=null&&m.result_s1!=null&&m.result_s2!=null&&parseInt(myPick.g1)===m.result_s1&&parseInt(myPick.g2)===m.result_s2)pts=3;}
-        pickArea=`<div class="match2-pick-area">`+
-          `<div class="pick-label">TU PICK</div>`+
-          `<div class="my-pick-display">`+
-            `<div class="mpd-team">${MT.f} ${MT.n}${myPick.g1!=null&&myPick.g2!=null?` (${myPick.g1}-${myPick.g2})`:''}</div>`+
-            `<div class="mpd-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'+'+pts+' pts':'0 pts'}</div>`+
-          `</div></div>`;
+      if(myP){
+        const MT=TM[myP.winner]||{n:myP.winner,f:'🏳️'};
+        let pts=0;if(myP.winner===m.result_team){pts=1;if(myP.g1!=null&&myP.g2!=null&&parseInt(myP.g1)===m.result_s1&&parseInt(myP.g2)===m.result_s2)pts=3;}
+        pickArea=`<div class="pick-area"><div class="pick-lbl">TU PICK</div><div class="mi-pick"><div class="mi-pick-team">${MT.f} ${MT.n}${myP.g1!=null&&myP.g2!=null?` (${myP.g1}-${myP.g2})`:''}</div><div class="mi-pick-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'+'+pts+' pts':'0 pts'}</div></div></div>`;
       }
     } else if(open){
-      const selW=myPick?myPick.winner:null;
-      pickArea=`<div class="match2-pick-area">`+
-        `<div class="pick-label">TU PICK — Ganador</div>`+
-        `<div class="pick-btns">`+
-          `<div class="pick-btn${selW===m.team1?' sel':''}" onclick="selPick2('${m.id}','${m.team1}','${m.team2}')">${T1.f} ${T1.n}</div>`+
-          `<div class="pick-btn${selW===m.team2?' sel':''}" onclick="selPick2('${m.id}','${m.team2}','${m.team1}')">${T2.f} ${T2.n}</div>`+
-        `</div>`+
-        `<div class="pick-label" style="margin-top:8px;">Marcador exacto (opcional +2 pts)</div>`+
-        `<div class="score-row2">`+
-          `<label>${T1.n}</label>`+
-          `<div class="score-inputs2">`+
-            `<input type="number" id="m2g1_${m.id}" min="0" max="20" placeholder="0" value="${myPick&&myPick.g1!=null?myPick.g1:''}"/>`+
-            `<span class="score-sep2">—</span>`+
-            `<input type="number" id="m2g2_${m.id}" min="0" max="20" placeholder="0" value="${myPick&&myPick.g2!=null?myPick.g2:''}"/>`+
-          `</div>`+
-          `<label>${T2.n}</label>`+
-        `</div>`+
-        `<button class="pick-save-btn" onclick="savePick2('${m.id}')">💾 GUARDAR PICK</button>`+
-      `</div>`;
-    } else if(myPick){
-      const MT=TM[myPick.winner]||{n:myPick.winner,f:'🏳️'};
-      pickArea=`<div class="match2-pick-area">`+
-        `<div class="pick-label">TU PICK (partido cerrado)</div>`+
-        `<div class="my-pick-display"><div class="mpd-team">${MT.f} ${MT.n}${myPick.g1!=null&&myPick.g2!=null?` (${myPick.g1}-${myPick.g2})`:''}</div><div class="mpd-score">Esperando resultado</div></div></div>`;
+      const selW=myP?myP.winner:null;
+      pickArea=`<div class="pick-area">`+
+        `<div class="pick-lbl">¿QUIÉN GANA?</div>`+
+        `<div class="pick-btns"><div class="pbtn${selW===m.team1?' sel':''}" onclick="selP2('${m.id}','${m.team1}')">${T1.f} ${T1.n}</div><div class="pbtn${selW===m.team2?' sel':''}" onclick="selP2('${m.id}','${m.team2}')">${T2.f} ${T2.n}</div></div>`+
+        `<div class="pick-lbl">MARCADOR EXACTO (opcional +2 pts)</div>`+
+        `<div class="score-row"><label>${T1.n}</label><div class="sinp"><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${myP&&myP.g1!=null?myP.g1:''}"/><span>—</span><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${myP&&myP.g2!=null?myP.g2:''}"/></div><label>${T2.n}</label></div>`+
+        `<button class="pick-save" onclick="guardarP2('${m.id}','${m.team1}','${m.team2}')">💾 GUARDAR PICK</button></div>`;
+    } else if(myP){
+      const MT=TM[myP.winner]||{n:myP.winner,f:'🏳️'};
+      pickArea=`<div class="pick-area"><div class="pick-lbl">TU PICK (partido cerrado)</div><div class="mi-pick"><div class="mi-pick-team">${MT.f} ${MT.n}${myP.g1!=null&&myP.g2!=null?` (${myP.g1}-${myP.g2})`:''}</div><div class="mi-pick-pts" style="color:var(--gr);">Esperando resultado</div></div></div>`;
     }
-    h+=`<div class="match2-card ${open?'open-pick':done?'':' closed-pick'}">`+
-      `<div class="match2-header"><div class="match2-date">${m.match_date?new Date(m.match_date).toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):m.label||'—'}</div>${statusHTML}</div>`+
-      `<div class="match2-teams">`+
-        `<div class="match2-team"><div class="match2-flag">${T1.f}</div><div class="match2-name">${T1.n}</div></div>`+
-        `<div class="match2-vs">VS</div>`+
-        `<div class="match2-team"><div class="match2-flag">${T2.f}</div><div class="match2-name">${T2.n}</div></div>`+
-      `</div>`+
-      (done&&m.result_s1!=null?`<div class="match2-result">${m.result_s1} — ${m.result_s2}</div>`:'')+
+    h+=`<div class="match2-card${open?' abierto':''}">`+
+      `<div class="match2-header"><div class="match2-fecha">${fecha}</div>${badge}</div>`+
+      `<div class="match2-teams"><div class="match2-team"><div class="match2-flag">${T1.f}</div><div class="match2-name">${T1.n}</div></div><div class="match2-vs">VS</div><div class="match2-team"><div class="match2-flag">${T2.f}</div><div class="match2-name">${T2.n}</div></div></div>`+
+      (done&&m.result_s1!=null?`<div class="match2-resultado">${m.result_s1} — ${m.result_s2}</div>`:'')+
       pickArea+`</div>`;
   });
-  h+=`</div>`;
   el.innerHTML=h;
 }
 
-let pendingPick2={};
-function selPick2(matchId,winner){
-  pendingPick2[matchId]=winner;
-  // Actualizar UI sin rerender completo
-  const card=document.querySelector(`[onclick="selPick2('${matchId}','${winner}','')"]`);
-  renderM2Partidos();
-  myPicks2[matchId]={...myPicks2[matchId],winner};
-  renderM2Partidos();
+let pendWinner={};
+function selP2(mid,team){
+  pendWinner[mid]=team;
+  // actualizar UI de botones
+  const btns=document.querySelectorAll(`[onclick^="selP2('${mid}'"]`);
+  btns.forEach(b=>{
+    b.classList.toggle('sel',b.textContent.includes(TM[team]?TM[team].n:team));
+  });
+  if(picks2[mid])picks2[mid].winner=team;
+  else picks2[mid]={winner:team,g1:null,g2:null};
 }
 
-async function savePick2(matchId){
-  const m=m2Matches.find(x=>x.id===matchId);if(!m)return;
-  const winner=myPicks2[matchId]?myPicks2[matchId].winner:null;
-  const g1El=document.getElementById('m2g1_'+matchId);
-  const g2El=document.getElementById('m2g2_'+matchId);
-  if(!g1El||!g2El){showToast('❌ Error al leer datos');return;}
-  const g1=g1El.value!==''?parseInt(g1El.value):null;
-  const g2=g2El.value!==''?parseInt(g2El.value):null;
-  // Obtener ganador seleccionado de los botones
-  const btns=document.querySelectorAll('.pick-btn.sel');
-  let selW=null;
-  if(btns.length>0){
-    const txt=btns[0].textContent.trim();
-    if(txt.includes(TM[m.team1]?TM[m.team1].n:m.team1))selW=m.team1;
-    else selW=m.team2;
-  }
-  if(!selW&&winner)selW=winner;
-  if(!selW){showToast('❌ Elige un ganador primero');return;}
+async function guardarP2(mid,t1,t2){
+  const winner=pendWinner[mid]||(picks2[mid]?picks2[mid].winner:null);
+  if(!winner){showToast('❌ Elige un ganador primero');return;}
+  const g1El=document.getElementById('g1_'+mid);
+  const g2El=document.getElementById('g2_'+mid);
+  const g1=g1El&&g1El.value!==''?parseInt(g1El.value):null;
+  const g2=g2El&&g2El.value!==''?parseInt(g2El.value):null;
   try{
-    await db.from('picks_m2').upsert([{participant_id:cu.id,match_id:matchId,pick_team:selW,score1:g1,score2:g2,updated_at:new Date().toISOString()}],{onConflict:'participant_id,match_id'});
-    myPicks2[matchId]={winner:selW,g1,g2};
-    await calcScore2();
+    const d=await getDb();
+    await d.from('picks_m2').upsert([{participant_id:cu.id,match_id:mid,pick_team:winner,score1:g1,score2:g2,updated_at:new Date().toISOString()}],{onConflict:'participant_id,match_id'});
+    picks2[mid]={winner,g1,g2};
+    await calcScore2(d);
     showToast('✅ Pick guardado');
-    renderM2Partidos();
+    renderPartidos();
   }catch(ex){showToast('❌ Error: '+ex.message);}
 }
 
-async function calcScore2(){
-  let score=0;
+async function calcScore2(d){
+  let sc=0;
   m2Matches.forEach(m=>{
     if(!m.result_team)return;
-    const pick=myPicks2[m.id];if(!pick)return;
-    if(pick.winner===m.result_team){
-      score+=1;
-      if(pick.g1!=null&&pick.g2!=null&&m.result_s1!=null&&m.result_s2!=null&&parseInt(pick.g1)===m.result_s1&&parseInt(pick.g2)===m.result_s2)score+=2;
-    }
+    const p=picks2[m.id];if(!p)return;
+    if(p.winner===m.result_team){sc+=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.result_s1&&parseInt(p.g2)===m.result_s2)sc+=2;}
   });
-  await db.from('participants').update({score_m2:score}).eq('id',cu.id);
-  cu.score_m2=score;localStorage.setItem('wc26_user',JSON.stringify(cu));
+  await d.from('participants').update({score_m2:sc}).eq('id',cu.id);
+  cu.score_m2=sc;localStorage.setItem('wc26_u',JSON.stringify(cu));
 }
 
-// ── CLASIFICACIÓN M2 ──
-async function buildLeader2(){
-  const el=document.getElementById('leader2-content');
-  el.innerHTML='<div style="color:var(--gr);font-size:13px;">Cargando...</div>';
+// ══ CLASIFICACIÓN A2 ══
+async function buildTabla2(){
+  const el=document.getElementById('tabla2-content');
+  el.innerHTML='<div style="color:var(--gr);">Cargando...</div>';
   try{
-    const{data:users}=await db.from('participants').select('*').order('score_m2',{ascending:false});
-    if(!users||users.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes aún.</p>';return;}
-    const paying=users.filter(u=>u.paid_m2);
-    const pozo=paying.length*500;
-    const maxScore=users[0].score_m2||0;
-    const winners=users.filter(u=>u.score_m2===maxScore&&maxScore>0);
-    const prizeEach=winners.length>1?` (÷${winners.length} = $${Math.floor(pozo/winners.length).toLocaleString()} c/u)`:'';
-    el.innerHTML=`<div class="lhdr m2">CLASIFICACIÓN M2</div>`+
-      `<div class="lsub">Partido a partido · ${paying.length} pagados</div>`+
-      `<div class="pozo-box m2"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val" style="color:var(--az);">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${prizeEach||'El que más puntos acumule gana todo'}</div></div>`+
-      `<div class="scoring-row"><div class="sc-box"><div class="sc-n" style="color:var(--az);">1</div><div class="sc-l">pto ganador</div></div><div class="sc-box"><div class="sc-n" style="color:var(--az);">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n" style="color:var(--az);">÷</div><div class="sc-l">empate divide</div></div></div>`+
-      `<div class="podio">`+users.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold2':''}">`+
-        `<div class="podpos" style="color:var(--az);">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div>`+
-        `<div class="podpts">${p.score_m2||0} pts</div>`+
-        `<div style="font-size:10px;margin-top:3px;color:${p.paid_m2?'#4ade80':'var(--rd)'};">${p.paid_m2?'✅ Pagado':'❌ Pendiente'}</div>`+
-      `</div>`).join('')+`</div>`+
-      `<div class="rtable">`+users.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}">`+
-        `<div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div>`+
-        `<div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--az)">(tú)</span>':''}</div>`+
-        `<div class="rpts m2">${p.score_m2||0} pts</div>`+
-        `<span class="rpaid" style="color:${p.paid_m2?'#4ade80':'var(--rd)'};">${p.paid_m2?'✅':'❌'}</span>`+
-      `</div>`).join('')+`</div>`;
-  }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error cargando.</p>';}
+    const d=await getDb();
+    const{data:us}=await d.from('participants').select('*').order('score_m2',{ascending:false});
+    if(!us||us.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes aún.</p>';return;}
+    const paying=us.filter(u=>u.paid_m2).length;
+    const pozo=paying*500;
+    const max=us[0].score_m2||0;
+    const wins=us.filter(u=>u.score_m2===max&&max>0);
+    const div=wins.length>1?` (÷${wins.length} = $${Math.floor(pozo/wins.length).toLocaleString()} c/u)`:'';
+    el.innerHTML=`<div class="cl-header az">CLASIFICACIÓN — SEMANA A SEMANA</div>`+
+      `<div class="pozo az"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val" style="color:var(--az);">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${div||'El que más puntos acumule gana todo'}</div></div>`+
+      `<div class="sc-row"><div class="sc-box"><div class="sc-n az">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n az">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n az">÷</div><div class="sc-l">empate divide</div></div></div>`+
+      `<div class="podio">${us.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold-az':''}"><div class="podpos" style="color:var(--az);">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div><div class="podpts">${p.score_m2||0} pts</div><div style="font-size:10px;margin-top:3px;color:${p.paid_m2?'#4ade80':'var(--rd)'};">${p.paid_m2?'✅':'❌'}</div></div>`).join('')}</div>`+
+      `<div class="rtable">${us.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}"><div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div><div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--az)">(tú)</span>':''}</div><div class="rpts az">${p.score_m2||0} pts</div><span style="font-size:10px;color:${p.paid_m2?'#4ade80':'var(--rd)'};">${p.paid_m2?'✅':'❌'}</span></div>`).join('')}</div>`;
+  }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error: '+ex.message+'</p>';}
 }
 
-// ── TODOS M2 ──
+// ══ TODOS A2 ══
 async function buildTodos2(){
   const el=document.getElementById('todos2-content');
-  el.innerHTML='<div style="color:var(--gr);font-size:13px;">Cargando...</div>';
+  el.innerHTML='<div style="color:var(--gr);">Cargando...</div>';
   try{
-    const{data:users}=await db.from('participants').select('*').order('score_m2',{ascending:false});
-    const{data:allPicks}=await db.from('picks_m2').select('*');
-    if(!users||users.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes.</p>';return;}
-    let h='<div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:3px;color:var(--az);margin-bottom:16px;">PICKS DE TODOS — M2</div>';
-    users.forEach(u=>{
-      const upicks=allPicks?allPicks.filter(p=>p.participant_id===u.id):[];
-      const pm={};upicks.forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
-      h+=`<div class="user-picks-card"><div class="upc-header"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div>`+
-        `<div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div>`+
-        `<div style="font-size:11px;color:var(--gr);">${u.paid_m2?'✅ Pagado M2':'❌ Pendiente'}</div></div>`+
-        `<div class="upc-pts" style="color:var(--az);">${u.score_m2||0} pts</div></div>`+
-        `<div class="upc-grid">`;
+    const d=await getDb();
+    const[{data:us},{data:ap}]=await Promise.all([d.from('participants').select('*').order('score_m2',{ascending:false}),d.from('picks_m2').select('*')]);
+    if(!us||us.length===0){el.innerHTML='<p style="color:var(--gr);">Sin participantes.</p>';return;}
+    let h=`<div class="cl-header az" style="margin-bottom:16px;">PICKS DE TODOS</div>`;
+    us.forEach(u=>{
+      const pm={};(ap||[]).filter(p=>p.participant_id===u.id).forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
+      h+=`<div class="upc"><div class="upc-hdr"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div><div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div><div style="font-size:11px;color:var(--gr);">${u.paid_m2?'✅ Pagado':'❌ Pendiente'}</div></div><div class="upc-pts-badge" style="color:var(--az);">${u.score_m2||0} pts</div></div><div class="upc-grid">`;
       m2Matches.forEach(m=>{
-        const pick=pm[m.id];if(!pick)return;
-        const MT=TM[pick.winner]||{n:pick.winner,f:'🏳️'};
-        let pts='';
-        if(m.result_team){let p=0;if(pick.winner===m.result_team){p=1;if(pick.g1!=null&&pick.g2!=null&&parseInt(pick.g1)===m.result_s1&&parseInt(pick.g2)===m.result_s2)p=3;}
-          pts=`<div class="upc-pts2" style="color:${p>0?'#4ade80':'var(--rd)'};">${p>0?'+'+p+'pts':'0pts'}</div>`;}
-        h+=`<div class="upc-item"><div class="upc-match">${m.label||m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>`+
-          (pick.g1!=null&&pick.g2!=null?`<div class="upc-score">${pick.g1}-${pick.g2}</div>`:'')+pts+`</div>`;
+        const p=pm[m.id];if(!p)return;
+        const MT=TM[p.winner]||{n:p.winner,f:'🏳️'};
+        let pts='';if(m.result_team){let s=0;if(p.winner===m.result_team){s=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.result_s1&&parseInt(p.g2)===m.result_s2)s=3;}pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
+        h+=`<div class="upc-item"><div class="upc-match">${m.label||m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null&&p.g2!=null?`<div class="upc-score">${p.g1}-${p.g2}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
     });
@@ -1045,8 +915,6 @@ function showToast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3500);
 }
-
-init();
 </script>
 </body>
 </html>
