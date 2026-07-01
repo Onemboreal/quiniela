@@ -441,6 +441,14 @@ const ALL=[...R16L,...R16R,...QFL,...QFR,...SFL,...SFR,SF2L,SF2R,FINAL];
 
 let cu=null,picks1={},picks2={},m2Matches=[],selWin=null,curMatch=null;
 
+function prePopulate1(){
+  ALL.forEach(m=>{
+    if(m.done&&!picks1[m.id]){
+      picks1[m.id]={winner:m.w,g1:m.s1,g2:m.s2,auto:true};
+    }
+  });
+}
+
 // ══ NAVEGACIÓN ══
 function irLogin(){show('slg');hide('swelcome');}
 function irBienvenida(){show('swelcome');hide('slg');}
@@ -494,6 +502,7 @@ async function doReg(){
     if(error){showErr(e,'Error: '+error.message);btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';return;}
     cu=data;localStorage.setItem('wc26_u',JSON.stringify(cu));
     picks1={};picks2={};m2Matches=[];
+    prePopulate1();
     mostrarMain();
   }catch(ex){showErr(e,'Error: '+ex.message);btn.disabled=false;btn.textContent='🎯 CREAR CUENTA';}
 }
@@ -518,6 +527,7 @@ async function cargarTodo(){
   picks2={};
   if(r2.data)r2.data.forEach(p=>picks2[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
   m2Matches=rm.data||[];
+  prePopulate1();
 }
 
 function mostrarMain(){
