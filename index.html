@@ -173,7 +173,7 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
       <div class="rule-item"><span class="ri-icon">⚽</span><span>Apuesta quién gana cada partido y el marcador, ronda por ronda: primero Octavos, luego Cuartos, Semifinales y Final.</span></div>
       <div class="rule-item"><span class="ri-icon">🎯</span><span><strong>Sistema de puntos:</strong> 1 punto por acertar el ganador, +1 punto por acertar los goles exactos de cada equipo por separado. Ejemplo: si el resultado real es 3-2 y tú pusiste 4-2, ganas 2 puntos (1 por el ganador correcto + 1 por acertar el "2" de un equipo).</span></div>
       <div class="rule-item"><span class="ri-icon">⏰</span><span>Solo puedes apostar hasta <strong>la noche anterior</strong> a cada partido. El día del partido ya no puedes apostar y pierdes esos puntos.</span></div>
-      <div class="rule-item"><span class="ri-icon">🔒</span><span>Cuando le des <strong>ENVIAR</strong> a un partido, tu apuesta queda registrada y <strong>ya no se puede modificar</strong>.</span></div>
+      <div class="rule-item"><span class="ri-icon">🔒</span><span>Puedes <strong>editar tu apuesta</strong> las veces que quieras mientras el partido siga abierto. Una vez que pase la hora límite (noche anterior al partido), se bloquea automáticamente.</span></div>
       <div class="rule-item"><span class="ri-icon">🏆</span><span>El que más puntos acumule al final del Mundial gana el pozo. Si hay empate, se divide.</span></div>
       <div class="rules-pts">
         <div class="rp"><div class="n">1</div><div class="l">pt por acertar ganador</div></div>
@@ -450,14 +450,14 @@ function cardH(m){
   // Badge de estado
   let badge='';
   if(done)badge=`<span class="badge-r b-fin">✅ ${m.note||'Finalizado'}</span>`;
-  else if(pick&&pick.sent)badge=`<span class="badge-r b-sent">🔒 Enviado</span>`;
-  else if(open)badge=`<span class="badge-r b-open">🔓 Abierto</span>`;
+  else if(open)badge=pick?`<span class="badge-r b-open">🔓 Abierto (puedes editar)</span>`:`<span class="badge-r b-open">🔓 Abierto</span>`;
+  else if(pick)badge=`<span class="badge-r b-sent">🔒 Cerrado — quedó registrado</span>`;
   else if(t1&&t2)badge=`<span class="badge-r b-closed">🔒 Cerrado</span>`;
 
   const w1=done?m.w===m.t1:(pick&&pick.winner===t1);
   const w2=done?m.w===m.t2:(pick&&pick.winner===t2);
 
-  let html=`<div class="mcard${open&&!pick?' abierto':''}${pick&&pick.sent?' enviado':''}">`+
+  let html=`<div class="mcard${open?' abierto':''}${!open&&pick?' enviado':''}">`+
     `<div class="mdate">${m.play||'—'} ${badge}</div>`+
     `<div class="tslot${w1?' win':''}">${T1?`<span class="tflag">${T1.f}</span><span class="tname">${T1.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s1!=null?`<span class="tscore">${m.s1}</span>`:''}</div>`+
     `<div class="tslot${w2?' win':''}">${T2?`<span class="tflag">${T2.f}</span><span class="tname">${T2.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s2!=null?`<span class="tscore">${m.s2}</span>`:''}</div>`;
@@ -469,12 +469,10 @@ function cardH(m){
       let pts=0;if(pick.winner===m.w)pts+=1;if(pick.g1!=null&&parseInt(pick.g1)===m.s1)pts+=1;if(pick.g2!=null&&parseInt(pick.g2)===m.s2)pts+=1;
       html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null||pick.g2!=null?` ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
     }
-  } else if(pick&&pick.sent){
-    const MT=TM[pick.winner];
-    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null||pick.g2!=null?`<div class="ma-sc">Marcador: ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}</div>`:''}<div class="ma-lock">🔒 Enviado — no se puede cambiar</div></div>`;
   } else if(open){
-    const s=sel[m.id]||{};
+    const s=sel[m.id]||{winner:pick?pick.winner:null,g1:pick?pick.g1:null,g2:pick?pick.g2:null};
     html+=`<div class="apuesta-area">`+
+      (pick?`<div class="apuesta-lbl" style="color:var(--or);">✏️ Ya apostaste — puedes editar hasta que cierre</div>`:'')+
       `<div class="apuesta-lbl">¿Quién gana?</div>`+
       `<div class="win-btns">`+
         `<div class="wbtn${s.winner===t1?' sel':''}" onclick="selWin('${m.id}','${t1}')">${T1.f} ${T1.n}</div>`+
@@ -482,8 +480,11 @@ function cardH(m){
       `</div>`+
       `<div class="apuesta-lbl">Marcador (1 pt por cada equipo si aciertas sus goles)</div>`+
       `<div class="sc-row"><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${s.g1!=null?s.g1:''}"/><span class="sep">—</span><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${s.g2!=null?s.g2:''}"/></div>`+
-      `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ENVIAR</button>`+
+      `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ${pick?'ACTUALIZAR':'ENVIAR'}</button>`+
     `</div>`;
+  } else if(pick){
+    const MT=TM[pick.winner];
+    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null||pick.g2!=null?`<div class="ma-sc">Marcador: ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}</div>`:''}<div class="ma-lock">🔒 El tiempo para apostar cerró</div></div>`;
   } else if(t1&&t2){
     html+=`<div class="cerrado-msg">⏰ Cerrado — ya no puedes apostar este partido</div>`;
   } else {
@@ -521,22 +522,24 @@ function selWin(mid,team){
 async function enviarPick(mid){
   const m=ALL.find(x=>x.id===mid);if(!m)return;
   if(!isOpen(m)){showToast('⏰ Este partido ya cerró');buildBracket();return;}
+  const existing=picks[mid];
   const s=sel[mid]||{};
   const g1El=document.getElementById('g1_'+mid);
   const g2El=document.getElementById('g2_'+mid);
-  const winner=s.winner;
+  const winner=s.winner||(existing?existing.winner:null);
   if(!winner){showToast('❌ Elige un ganador primero');return;}
   const g1=g1El&&g1El.value!==''?parseInt(g1El.value):null;
   const g2=g2El&&g2El.value!==''?parseInt(g2El.value):null;
   // Confirmar
-  if(!confirm('¿Enviar esta apuesta? Una vez enviada NO se puede modificar.'))return;
+  const msg=existing?'¿Actualizar tu apuesta?':'¿Enviar esta apuesta? Podrás editarla mientras el partido siga abierto (hasta la noche anterior al juego).';
+  if(!confirm(msg))return;
   try{
     const d=await getDb();
     await d.from('picks_m1').upsert([{participant_id:cu.id,match_id:mid,pick_team:winner,score1:g1,score2:g2,updated_at:new Date().toISOString()}],{onConflict:'participant_id,match_id'});
     picks[mid]={winner,g1,g2,sent:true};
     delete sel[mid];
     await calcScore();
-    showToast('✅ Apuesta enviada y bloqueada');
+    showToast(existing?'✅ Apuesta actualizada':'✅ Apuesta enviada');
     buildBracket();
   }catch(ex){showToast('❌ Error: '+ex.message);}
 }
