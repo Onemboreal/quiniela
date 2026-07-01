@@ -297,6 +297,12 @@ const SF2R={id:'P102',from:['P99','P100'],play:'15/07',deadline:'2026-07-14T23:5
 const FINAL={id:'P104',from:['P101','P102'],play:'19/07',deadline:'2026-07-18T23:59'};
 const ALL=[...R16L,...R16R,...QFL,...QFR,...SFL,...SFR,SF2L,SF2R,FINAL];
 
+// Orden cronológico real de los partidos (por fecha/hora de juego)
+const MATCH_ORDER=['P73','P76','P74','P75','P78','P77','P79','P80','P82','P81','P84','P83','P85','P88','P86','P87','P90','P89','P91','P92','P93','P94','P95','P96','P97','P98','P99','P100','P101','P102','P104'];
+function sortedAll(){
+  return [...ALL].sort((a,b)=>MATCH_ORDER.indexOf(a.id)-MATCH_ORDER.indexOf(b.id));
+}
+
 let cu=null, picks={}, sel={};
 
 // ══ HORA CDMX ══
@@ -461,11 +467,11 @@ function cardH(m){
     if(pick){
       const MT=TM[pick.winner];
       let pts=0;if(pick.winner===m.w)pts+=1;if(pick.g1!=null&&parseInt(pick.g1)===m.s1)pts+=1;if(pick.g2!=null&&parseInt(pick.g2)===m.s2)pts+=1;
-      html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null?` ${pick.g1}-${pick.g2}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
+      html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null||pick.g2!=null?` ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
     }
   } else if(pick&&pick.sent){
     const MT=TM[pick.winner];
-    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null?`<div class="ma-sc">Marcador: ${pick.g1}-${pick.g2}</div>`:''}<div class="ma-lock">🔒 Enviado — no se puede cambiar</div></div>`;
+    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null||pick.g2!=null?`<div class="ma-sc">Marcador: ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}</div>`:''}<div class="ma-lock">🔒 Enviado — no se puede cambiar</div></div>`;
   } else if(open){
     const s=sel[m.id]||{};
     html+=`<div class="apuesta-area">`+
@@ -582,11 +588,11 @@ async function buildTodos(){
     us.forEach(u=>{
       const pm={};(ap||[]).filter(p=>p.participant_id===u.id).forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
       h+=`<div class="upc"><div class="upc-hdr"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div><div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div><div style="font-size:11px;color:var(--gr);">💰 ${u.paid_m1?'<span style="color:#4ade80;">Pago confirmado</span>':'<span style="color:var(--rd);">Pago pendiente ($500)</span>'}</div></div><div class="upc-pts-badge">${u.score_m1||0} pts</div></div><div class="upc-grid">`;
-      ALL.forEach(m=>{
+      sortedAll().forEach(m=>{
         const p=pm[m.id];if(!p)return;
         const MT=TM[p.winner];if(!MT)return;
         let pts='';if(m.done){let s=0;if(p.winner===m.w)s+=1;if(p.g1!=null&&parseInt(p.g1)===m.s1)s+=1;if(p.g2!=null&&parseInt(p.g2)===m.s2)s+=1;pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
-        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null?`<div class="upc-score">${p.g1}-${p.g2}</div>`:''}${pts}</div>`;
+        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null||p.g2!=null?`<div class="upc-score">${p.g1!=null?p.g1:0}-${p.g2!=null?p.g2:0}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
     });
