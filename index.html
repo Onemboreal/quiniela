@@ -409,6 +409,40 @@ function mostrarMain(){
   document.getElementById('uav').textContent=(cu.display_name||cu.username)[0].toUpperCase();
   updateClock();
   buildBracket();
+  recalcularTodosLosPuntajes(); // se ejecuta en segundo plano, silencioso
+}
+
+// Recalcula automáticamente los puntos de TODOS los participantes
+// basándose en los partidos ya finalizados (m.done=true en el código).
+// Se ejecuta cada vez que alguien entra a la app, así que en cuanto
+// se actualicen resultados y alguien abra la app, todos se recalculan.
+async function recalcularTodosLosPuntajes(){
+  try{
+    const d=await getDb();
+    const doneMatches=ALL.filter(m=>m.done);
+    if(doneMatches.length===0)return;
+    const[{data:us},{data:ap}]=await Promise.all([
+      d.from('participants').select('id,score_m1'),
+      d.from('picks_m1').select('*')
+    ]);
+    if(!us||!ap)return;
+    const updates=[];
+    us.forEach(u=>{
+      let sc=0;
+      const myPicks=ap.filter(p=>p.participant_id===u.id);
+      doneMatches.forEach(m=>{
+        const p=myPicks.find(x=>x.match_id===m.id);
+        if(!p)return;
+        if(p.pick_team===m.w)sc+=1;
+        if(p.score1!=null&&parseInt(p.score1)===m.s1)sc+=1;
+        if(p.score2!=null&&parseInt(p.score2)===m.s2)sc+=1;
+      });
+      if(sc!==u.score_m1)updates.push({id:u.id,score_m1:sc});
+    });
+    if(updates.length>0){
+      await Promise.all(updates.map(u=>d.from('participants').update({score_m1:u.score_m1}).eq('id',u.id)));
+    }
+  }catch(ex){console.log('Recalculo silencioso falló:',ex.message);}
 }
 
 window.addEventListener('load',async()=>{
