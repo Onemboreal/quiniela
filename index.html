@@ -434,8 +434,8 @@ async function recalcularTodosLosPuntajes(){
         const p=myPicks.find(x=>x.match_id===m.id);
         if(!p)return;
         if(p.pick_team===m.w)sc+=1;
-        if(p.score1!=null&&parseInt(p.score1)===m.s1)sc+=1;
-        if(p.score2!=null&&parseInt(p.score2)===m.s2)sc+=1;
+        if((p.score1!=null?parseInt(p.score1):0)===m.s1)sc+=1;
+        if((p.score2!=null?parseInt(p.score2):0)===m.s2)sc+=1;
       });
       if(sc!==u.score_m1)updates.push({id:u.id,score_m1:sc});
     });
@@ -500,7 +500,7 @@ function cardH(m){
   if(done){
     if(pick){
       const MT=TM[pick.winner];
-      let pts=0;if(pick.winner===m.w)pts+=1;if(pick.g1!=null&&parseInt(pick.g1)===m.s1)pts+=1;if(pick.g2!=null&&parseInt(pick.g2)===m.s2)pts+=1;
+      let pts=0;if(pick.winner===m.w)pts+=1;if((pick.g1!=null?parseInt(pick.g1):0)===m.s1)pts+=1;if((pick.g2!=null?parseInt(pick.g2):0)===m.s2)pts+=1;
       html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null||pick.g2!=null?` ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
     }
   } else if(open){
@@ -584,8 +584,8 @@ async function calcScore(){
     if(!m.done)return;
     const p=picks[m.id];if(!p)return;
     if(p.winner===m.w)sc+=1;
-    if(p.g1!=null&&parseInt(p.g1)===m.s1)sc+=1;
-    if(p.g2!=null&&parseInt(p.g2)===m.s2)sc+=1;
+    if((p.g1!=null?parseInt(p.g1):0)===m.s1)sc+=1;
+    if((p.g2!=null?parseInt(p.g2):0)===m.s2)sc+=1;
   });
   const d=await getDb();
   await d.from('participants').update({score_m1:sc}).eq('id',cu.id);
@@ -628,7 +628,7 @@ async function buildTodos(){
       sortedAll().forEach(m=>{
         const p=pm[m.id];if(!p)return;
         const MT=TM[p.winner];if(!MT)return;
-        let pts='';if(m.done){let s=0;if(p.winner===m.w)s+=1;if(p.g1!=null&&parseInt(p.g1)===m.s1)s+=1;if(p.g2!=null&&parseInt(p.g2)===m.s2)s+=1;pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
+        let pts='';if(m.done){let s=0;if(p.winner===m.w)s+=1;if((p.g1!=null?parseInt(p.g1):0)===m.s1)s+=1;if((p.g2!=null?parseInt(p.g2):0)===m.s2)s+=1;pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
         h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null||p.g2!=null?`<div class="upc-score">${p.g1!=null?p.g1:0}-${p.g2!=null?p.g2:0}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
