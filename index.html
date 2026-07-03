@@ -104,6 +104,11 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 .wbtn{flex:1;padding:6px 4px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);border-radius:6px;cursor:pointer;text-align:center;font-size:10px;font-weight:600;transition:all 0.15s;}
 .wbtn:hover,.wbtn.sel{background:rgba(245,197,24,0.12);border-color:var(--or);color:var(--or);}
 .sc-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:7px;}
+.apuesta-divider{height:1px;background:var(--bd);margin:8px 0;}
+.sc-row-labeled{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:8px;}
+.sc-team-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.sc-team-lbl{font-size:9px;color:var(--gr);text-align:center;max-width:70px;line-height:1.2;}
+.apuesta-hint{font-size:9px;color:var(--gr);text-align:center;line-height:1.4;margin-bottom:8px;padding:0 4px;}
 .sc-row input{width:38px;background:rgba(255,255,255,0.05);border:1px solid var(--bd);border-radius:5px;padding:5px;color:var(--bl);font-size:14px;font-weight:700;text-align:center;outline:none;}
 .sc-row input:focus{border-color:var(--or);}
 .sc-row .sep{font-size:14px;color:var(--gr);}
@@ -224,7 +229,7 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 <!-- MAIN -->
 <div class="screen" id="smain">
   <div class="topbar">
-    <span class="tbtitle">🏆 MUNDIAL 2026 <span style="font-size:9px;color:var(--gr);font-family:'Inter',sans-serif;letter-spacing:0;">v1.1.2</span></span>
+    <span class="tbtitle">🏆 MUNDIAL 2026 <span style="font-size:9px;color:var(--gr);font-family:'Inter',sans-serif;letter-spacing:0;">v1.1.3</span></span>
     <div class="clock"><div class="time" id="clock-time">--:--</div><div id="clock-date">Hora CDMX</div></div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="uchip"><div class="uav" id="uav">?</div><span id="uname">—</span></div>
@@ -515,8 +520,14 @@ function cardH(m){
         `<div class="wbtn${s.winner===t1?' sel':''}" onclick="selWin('${m.id}','${t1}')">${T1.f} ${T1.n}</div>`+
         `<div class="wbtn${s.winner===t2?' sel':''}" onclick="selWin('${m.id}','${t2}')">${T2.f} ${T2.n}</div>`+
       `</div>`+
-      `<div class="apuesta-lbl">Marcador (1 pt por cada equipo si aciertas sus goles)</div>`+
-      `<div class="sc-row"><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${s.g1!=null?s.g1:''}"/><span class="sep">—</span><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${s.g2!=null?s.g2:''}"/></div>`+
+      `<div class="apuesta-divider"></div>`+
+      `<div class="apuesta-lbl">Goles de cada equipo</div>`+
+      `<div class="sc-row-labeled">`+
+        `<div class="sc-team-col"><div class="sc-team-lbl">${T1.f} ${T1.n}</div><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${s.g1!=null?s.g1:''}"/></div>`+
+        `<span class="sep">—</span>`+
+        `<div class="sc-team-col"><div class="sc-team-lbl">${T2.f} ${T2.n}</div><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${s.g2!=null?s.g2:''}"/></div>`+
+      `</div>`+
+      `<div class="apuesta-hint">💡 1 pt por acertar el ganador. +1 pt extra por cada equipo si aciertas sus goles exactos.</div>`+
       `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ${pick?'ACTUALIZAR':'ENVIAR'}</button>`+
     `</div>`;
   } else if(pick){
