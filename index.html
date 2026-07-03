@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiniela Mundial 2026</title>
@@ -170,13 +173,14 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 
     <div class="rules">
       <h3>📋 Cómo funciona</h3>
-      <div class="rule-item"><span class="ri-icon">⚽</span><span>Apuesta quién gana cada partido y el marcador exacto, ronda por ronda: primero Octavos, luego Cuartos, Semifinales y Final.</span></div>
+      <div class="rule-item"><span class="ri-icon">⚽</span><span>Apuesta quién gana cada partido y el marcador, ronda por ronda: primero Octavos, luego Cuartos, Semifinales y Final.</span></div>
+      <div class="rule-item"><span class="ri-icon">🎯</span><span><strong>Sistema de puntos:</strong> 1 punto por acertar el ganador, +1 punto por acertar los goles exactos de cada equipo por separado. Ejemplo: si el resultado real es 3-2 y tú pusiste 4-2, ganas 2 puntos (1 por el ganador correcto + 1 por acertar el "2" de un equipo).</span></div>
       <div class="rule-item"><span class="ri-icon">⏰</span><span>Solo puedes apostar hasta <strong>la noche anterior</strong> a cada partido. El día del partido ya no puedes apostar y pierdes esos puntos.</span></div>
-      <div class="rule-item"><span class="ri-icon">🔒</span><span>Cuando le des <strong>ENVIAR</strong> a un partido, tu apuesta queda registrada y <strong>ya no se puede modificar</strong>.</span></div>
+      <div class="rule-item"><span class="ri-icon">🔒</span><span>Puedes <strong>editar tu apuesta</strong> las veces que quieras mientras el partido siga abierto. Una vez que pase la hora límite (noche anterior al partido), se bloquea automáticamente.</span></div>
       <div class="rule-item"><span class="ri-icon">🏆</span><span>El que más puntos acumule al final del Mundial gana el pozo. Si hay empate, se divide.</span></div>
       <div class="rules-pts">
         <div class="rp"><div class="n">1</div><div class="l">pt por acertar ganador</div></div>
-        <div class="rp"><div class="n">+2</div><div class="l">pts por marcador exacto</div></div>
+        <div class="rp"><div class="n">1</div><div class="l">pt por goles exactos de cada equipo</div></div>
         <div class="rp"><div class="n">3</div><div class="l">pts máximo por partido</div></div>
       </div>
     </div>
@@ -220,7 +224,7 @@ body{font-family:'Inter',sans-serif;background:var(--vd);color:var(--bl);min-hei
 <!-- MAIN -->
 <div class="screen" id="smain">
   <div class="topbar">
-    <span class="tbtitle">🏆 MUNDIAL 2026</span>
+    <span class="tbtitle">🏆 MUNDIAL 2026 <span style="font-size:9px;color:var(--gr);font-family:'Inter',sans-serif;letter-spacing:0;">v1.1.2</span></span>
     <div class="clock"><div class="time" id="clock-time">--:--</div><div id="clock-date">Hora CDMX</div></div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="uchip"><div class="uav" id="uav">?</div><span id="uname">—</span></div>
@@ -272,19 +276,19 @@ const R16L=[
   {id:'P77',t1:'FRA',t2:'SWE',done:true,s1:3,s2:0,w:'FRA'},
   {id:'P73',t1:'RSA',t2:'CAN',done:true,s1:0,s2:1,w:'CAN'},
   {id:'P75',t1:'NED',t2:'MAR',done:true,s1:1,s2:1,w:'MAR',note:'Marruecos 3-2 pen'},
-  {id:'P83',t1:'POR',t2:'CRO',deadline:'2026-07-01T23:59',play:'02/07 18:00'},
-  {id:'P84',t1:'ESP',t2:'AUT',deadline:'2026-07-01T23:59',play:'02/07 14:00'},
-  {id:'P81',t1:'USA',t2:'BIH',deadline:'2026-07-01T18:59',play:'HOY 19:00',today:true},
-  {id:'P82',t1:'BEL',t2:'SEN',deadline:'2026-07-01T14:59',play:'HOY 15:00',today:true}
+  {id:'P83',t1:'POR',t2:'CRO',done:true,s1:2,s2:1,w:'POR',play:'Finalizado'},
+  {id:'P84',t1:'ESP',t2:'AUT',done:true,s1:3,s2:0,w:'ESP',play:'Finalizado'},
+  {id:'P81',t1:'USA',t2:'BIH',done:true,s1:2,s2:0,w:'USA',play:'Finalizado'},
+  {id:'P82',t1:'BEL',t2:'SEN',done:true,s1:3,s2:2,w:'BEL',play:'Finalizado (t.extra)'}
 ];
 const R16R=[
   {id:'P76',t1:'BRA',t2:'JPN',done:true,s1:2,s2:1,w:'BRA'},
   {id:'P78',t1:'CIV',t2:'NOR',done:true,s1:1,s2:2,w:'NOR'},
   {id:'P79',t1:'MEX',t2:'ECU',done:true,s1:2,s2:0,w:'MEX'},
-  {id:'P80',t1:'ENG',t2:'COD',deadline:'2026-07-01T10:59',play:'HOY 11:00',today:true},
+  {id:'P80',t1:'ENG',t2:'COD',done:true,s1:2,s2:1,w:'ENG',play:'Finalizado'},
   {id:'P86',t1:'ARG',t2:'CPV',deadline:'2026-07-02T23:59',play:'03/07 17:00'},
   {id:'P88',t1:'AUS',t2:'EGY',deadline:'2026-07-02T23:59',play:'03/07 13:00'},
-  {id:'P85',t1:'SUI',t2:'ALG',deadline:'2026-07-01T23:59',play:'02/07 22:00'},
+  {id:'P85',t1:'SUI',t2:'ALG',done:true,s1:2,s2:0,w:'SUI',play:'Finalizado'},
   {id:'P87',t1:'COL',t2:'GHA',deadline:'2026-07-02T23:59',play:'03/07 20:30'}
 ];
 const QFL=[{id:'P89',from:['P74','P77'],play:'04/07',deadline:'2026-07-03T23:59'},{id:'P90',from:['P73','P75'],play:'04/07',deadline:'2026-07-03T23:59'},{id:'P93',from:['P83','P84'],play:'06/07',deadline:'2026-07-05T23:59'},{id:'P94',from:['P81','P82'],play:'06/07',deadline:'2026-07-05T23:59'}];
@@ -295,6 +299,12 @@ const SF2L={id:'P101',from:['P97','P98'],play:'14/07',deadline:'2026-07-13T23:59
 const SF2R={id:'P102',from:['P99','P100'],play:'15/07',deadline:'2026-07-14T23:59'};
 const FINAL={id:'P104',from:['P101','P102'],play:'19/07',deadline:'2026-07-18T23:59'};
 const ALL=[...R16L,...R16R,...QFL,...QFR,...SFL,...SFR,SF2L,SF2R,FINAL];
+
+// Orden cronológico real de los partidos (por fecha/hora de juego)
+const MATCH_ORDER=['P73','P76','P74','P75','P78','P77','P79','P80','P82','P81','P84','P83','P85','P88','P86','P87','P90','P89','P91','P92','P93','P94','P95','P96','P97','P98','P99','P100','P101','P102','P104'];
+function sortedAll(){
+  return [...ALL].sort((a,b)=>MATCH_ORDER.indexOf(a.id)-MATCH_ORDER.indexOf(b.id));
+}
 
 let cu=null, picks={}, sel={};
 
@@ -402,6 +412,40 @@ function mostrarMain(){
   document.getElementById('uav').textContent=(cu.display_name||cu.username)[0].toUpperCase();
   updateClock();
   buildBracket();
+  recalcularTodosLosPuntajes(); // se ejecuta en segundo plano, silencioso
+}
+
+// Recalcula automáticamente los puntos de TODOS los participantes
+// basándose en los partidos ya finalizados (m.done=true en el código).
+// Se ejecuta cada vez que alguien entra a la app, así que en cuanto
+// se actualicen resultados y alguien abra la app, todos se recalculan.
+async function recalcularTodosLosPuntajes(){
+  try{
+    const d=await getDb();
+    const doneMatches=ALL.filter(m=>m.done);
+    if(doneMatches.length===0)return;
+    const[{data:us},{data:ap}]=await Promise.all([
+      d.from('participants').select('id,score_m1'),
+      d.from('picks_m1').select('*')
+    ]);
+    if(!us||!ap)return;
+    const updates=[];
+    us.forEach(u=>{
+      let sc=0;
+      const myPicks=ap.filter(p=>p.participant_id===u.id);
+      doneMatches.forEach(m=>{
+        const p=myPicks.find(x=>x.match_id===m.id);
+        if(!p)return;
+        if(p.pick_team===m.w)sc+=1;
+        if((p.score1!=null?parseInt(p.score1):0)===m.s1)sc+=1;
+        if((p.score2!=null?parseInt(p.score2):0)===m.s2)sc+=1;
+      });
+      if(sc!==u.score_m1)updates.push({id:u.id,score_m1:sc});
+    });
+    if(updates.length>0){
+      await Promise.all(updates.map(u=>d.from('participants').update({score_m1:u.score_m1}).eq('id',u.id)));
+    }
+  }catch(ex){console.log('Recalculo silencioso falló:',ex.message);}
 }
 
 window.addEventListener('load',async()=>{
@@ -443,14 +487,14 @@ function cardH(m){
   // Badge de estado
   let badge='';
   if(done)badge=`<span class="badge-r b-fin">✅ ${m.note||'Finalizado'}</span>`;
-  else if(pick&&pick.sent)badge=`<span class="badge-r b-sent">🔒 Enviado</span>`;
-  else if(open)badge=`<span class="badge-r b-open">🔓 Abierto</span>`;
+  else if(open)badge=pick?`<span class="badge-r b-open">🔓 Abierto (puedes editar)</span>`:`<span class="badge-r b-open">🔓 Abierto</span>`;
+  else if(pick)badge=`<span class="badge-r b-sent">🔒 Cerrado — quedó registrado</span>`;
   else if(t1&&t2)badge=`<span class="badge-r b-closed">🔒 Cerrado</span>`;
 
   const w1=done?m.w===m.t1:(pick&&pick.winner===t1);
   const w2=done?m.w===m.t2:(pick&&pick.winner===t2);
 
-  let html=`<div class="mcard${open&&!pick?' abierto':''}${pick&&pick.sent?' enviado':''}">`+
+  let html=`<div class="mcard${open?' abierto':''}${!open&&pick?' enviado':''}">`+
     `<div class="mdate">${m.play||'—'} ${badge}</div>`+
     `<div class="tslot${w1?' win':''}">${T1?`<span class="tflag">${T1.f}</span><span class="tname">${T1.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s1!=null?`<span class="tscore">${m.s1}</span>`:''}</div>`+
     `<div class="tslot${w2?' win':''}">${T2?`<span class="tflag">${T2.f}</span><span class="tname">${T2.n}</span>`:`<span class="tflag">🏳️</span><span class="tempty">Por definir</span>`}${m.s2!=null?`<span class="tscore">${m.s2}</span>`:''}</div>`;
@@ -459,24 +503,25 @@ function cardH(m){
   if(done){
     if(pick){
       const MT=TM[pick.winner];
-      let pts=0;if(pick.winner===m.w){pts=1;if(pick.g1!=null&&pick.g2!=null&&parseInt(pick.g1)===m.s1&&parseInt(pick.g2)===m.s2)pts=3;}
-      html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null?` ${pick.g1}-${pick.g2}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
+      let pts=0;if(pick.winner===m.w)pts+=1;if((pick.g1!=null?parseInt(pick.g1):0)===m.s1)pts+=1;if((pick.g2!=null?parseInt(pick.g2):0)===m.s2)pts+=1;
+      html+=`<div class="mi-apuesta"><div class="ma-team">Aposté: ${MT?MT.f:''} ${MT?MT.n:pick.winner}${pick.g1!=null||pick.g2!=null?` ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}`:''}</div><div class="ma-pts" style="color:${pts>0?'#4ade80':'var(--rd)'};">${pts>0?'✅ +'+pts+' pts':'❌ 0 pts'}</div></div>`;
     }
-  } else if(pick&&pick.sent){
-    const MT=TM[pick.winner];
-    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null?`<div class="ma-sc">Marcador: ${pick.g1}-${pick.g2}</div>`:''}<div class="ma-lock">🔒 Enviado — no se puede cambiar</div></div>`;
   } else if(open){
-    const s=sel[m.id]||{};
+    const s=sel[m.id]||{winner:pick?pick.winner:null,g1:pick?pick.g1:null,g2:pick?pick.g2:null};
     html+=`<div class="apuesta-area">`+
+      (pick?`<div class="apuesta-lbl" style="color:var(--or);">✏️ Ya apostaste — puedes editar hasta que cierre</div>`:'')+
       `<div class="apuesta-lbl">¿Quién gana?</div>`+
       `<div class="win-btns">`+
         `<div class="wbtn${s.winner===t1?' sel':''}" onclick="selWin('${m.id}','${t1}')">${T1.f} ${T1.n}</div>`+
         `<div class="wbtn${s.winner===t2?' sel':''}" onclick="selWin('${m.id}','${t2}')">${T2.f} ${T2.n}</div>`+
       `</div>`+
-      `<div class="apuesta-lbl">Marcador (opcional +2 pts)</div>`+
+      `<div class="apuesta-lbl">Marcador (1 pt por cada equipo si aciertas sus goles)</div>`+
       `<div class="sc-row"><input type="number" id="g1_${m.id}" min="0" max="20" placeholder="0" value="${s.g1!=null?s.g1:''}"/><span class="sep">—</span><input type="number" id="g2_${m.id}" min="0" max="20" placeholder="0" value="${s.g2!=null?s.g2:''}"/></div>`+
-      `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ENVIAR</button>`+
+      `<button class="send-btn" onclick="enviarPick('${m.id}')">📤 ${pick?'ACTUALIZAR':'ENVIAR'}</button>`+
     `</div>`;
+  } else if(pick){
+    const MT=TM[pick.winner];
+    html+=`<div class="mi-apuesta"><div class="ma-team">${MT?MT.f:''} ${MT?MT.n:pick.winner}</div>${pick.g1!=null||pick.g2!=null?`<div class="ma-sc">Marcador: ${pick.g1!=null?pick.g1:0}-${pick.g2!=null?pick.g2:0}</div>`:''}<div class="ma-lock">🔒 El tiempo para apostar cerró</div></div>`;
   } else if(t1&&t2){
     html+=`<div class="cerrado-msg">⏰ Cerrado — ya no puedes apostar este partido</div>`;
   } else {
@@ -514,22 +559,24 @@ function selWin(mid,team){
 async function enviarPick(mid){
   const m=ALL.find(x=>x.id===mid);if(!m)return;
   if(!isOpen(m)){showToast('⏰ Este partido ya cerró');buildBracket();return;}
+  const existing=picks[mid];
   const s=sel[mid]||{};
   const g1El=document.getElementById('g1_'+mid);
   const g2El=document.getElementById('g2_'+mid);
-  const winner=s.winner;
+  const winner=s.winner||(existing?existing.winner:null);
   if(!winner){showToast('❌ Elige un ganador primero');return;}
   const g1=g1El&&g1El.value!==''?parseInt(g1El.value):null;
   const g2=g2El&&g2El.value!==''?parseInt(g2El.value):null;
   // Confirmar
-  if(!confirm('¿Enviar esta apuesta? Una vez enviada NO se puede modificar.'))return;
+  const msg=existing?'¿Actualizar tu apuesta?':'¿Enviar esta apuesta? Podrás editarla mientras el partido siga abierto (hasta la noche anterior al juego).';
+  if(!confirm(msg))return;
   try{
     const d=await getDb();
     await d.from('picks_m1').upsert([{participant_id:cu.id,match_id:mid,pick_team:winner,score1:g1,score2:g2,updated_at:new Date().toISOString()}],{onConflict:'participant_id,match_id'});
     picks[mid]={winner,g1,g2,sent:true};
     delete sel[mid];
     await calcScore();
-    showToast('✅ Apuesta enviada y bloqueada');
+    showToast(existing?'✅ Apuesta actualizada':'✅ Apuesta enviada');
     buildBracket();
   }catch(ex){showToast('❌ Error: '+ex.message);}
 }
@@ -539,7 +586,9 @@ async function calcScore(){
   ALL.forEach(m=>{
     if(!m.done)return;
     const p=picks[m.id];if(!p)return;
-    if(p.winner===m.w){sc+=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)sc+=2;}
+    if(p.winner===m.w)sc+=1;
+    if((p.g1!=null?parseInt(p.g1):0)===m.s1)sc+=1;
+    if((p.g2!=null?parseInt(p.g2):0)===m.s2)sc+=1;
   });
   const d=await getDb();
   await d.from('participants').update({score_m1:sc}).eq('id',cu.id);
@@ -561,7 +610,7 @@ async function buildTabla(){
     const div=wins.length>1?` (÷${wins.length} = $${Math.floor(pozo/wins.length).toLocaleString()} c/u)`:'';
     el.innerHTML=`<div class="cl-header">CLASIFICACIÓN</div>`+
       `<div class="pozo"><div class="pozo-lbl">Pozo Total</div><div class="pozo-val">$${pozo.toLocaleString()} MXN</div><div class="pozo-sub">${div||'El que más puntos acumule gana todo'} · ${paying} pagados</div></div>`+
-      `<div class="sc-info"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n">+2</div><div class="sc-l">marcador exacto</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
+      `<div class="sc-info"><div class="sc-box"><div class="sc-n">1</div><div class="sc-l">pt ganador</div></div><div class="sc-box"><div class="sc-n">1+1</div><div class="sc-l">pt por goles de c/equipo</div></div><div class="sc-box"><div class="sc-n">3</div><div class="sc-l">máximo</div></div></div>`+
       `<div class="podio">${us.slice(0,3).map((p,i)=>`<div class="podcard${i===0?' gold':''}"><div class="podpos">${['🥇','🥈','🥉'][i]}</div><div class="podname">${p.display_name||p.username}</div><div class="podpts">${p.score_m1||0} pts</div><div style="font-size:9px;margin-top:3px;color:${p.paid_m1?'#4ade80':'var(--rd)'};">${p.paid_m1?'💰 Pago OK':'💰 Sin pagar'}</div></div>`).join('')}</div>`+
       `<div class="rtable">${us.map((p,i)=>`<div class="rrow${cu&&p.id===cu.id?' me':''}"><div class="rnum">${i+1}</div><div class="rav">${(p.display_name||p.username)[0].toUpperCase()}</div><div class="rname">${p.display_name||p.username}${cu&&p.id===cu.id?' <span style="font-size:10px;color:var(--or)">(tú)</span>':''}</div><div class="rpts">${p.score_m1||0} pts</div><span style="font-size:10px;color:${p.paid_m1?'#4ade80':'var(--rd)'};" title="Estado de pago de $500">${p.paid_m1?'💰✅':'💰❌'}</span></div>`).join('')}</div>`;
   }catch(ex){el.innerHTML='<p style="color:var(--rd);">Error: '+ex.message+'</p>';}
@@ -579,11 +628,11 @@ async function buildTodos(){
     us.forEach(u=>{
       const pm={};(ap||[]).filter(p=>p.participant_id===u.id).forEach(p=>pm[p.match_id]={winner:p.pick_team,g1:p.score1,g2:p.score2});
       h+=`<div class="upc"><div class="upc-hdr"><div class="rav">${(u.display_name||u.username)[0].toUpperCase()}</div><div><div class="upc-name">${u.display_name||u.username}${cu&&u.id===cu.id?' (tú)':''}</div><div style="font-size:11px;color:var(--gr);">💰 ${u.paid_m1?'<span style="color:#4ade80;">Pago confirmado</span>':'<span style="color:var(--rd);">Pago pendiente ($500)</span>'}</div></div><div class="upc-pts-badge">${u.score_m1||0} pts</div></div><div class="upc-grid">`;
-      ALL.forEach(m=>{
+      sortedAll().forEach(m=>{
         const p=pm[m.id];if(!p)return;
         const MT=TM[p.winner];if(!MT)return;
-        let pts='';if(m.done){let s=0;if(p.winner===m.w){s=1;if(p.g1!=null&&p.g2!=null&&parseInt(p.g1)===m.s1&&parseInt(p.g2)===m.s2)s=3;}pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
-        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null?`<div class="upc-score">${p.g1}-${p.g2}</div>`:''}${pts}</div>`;
+        let pts='';if(m.done){let s=0;if(p.winner===m.w)s+=1;if((p.g1!=null?parseInt(p.g1):0)===m.s1)s+=1;if((p.g2!=null?parseInt(p.g2):0)===m.s2)s+=1;pts=`<div class="upc-pts2" style="color:${s>0?'#4ade80':'var(--rd)'};">${s>0?'+'+s:'0'}pts</div>`;}
+        h+=`<div class="upc-item"><div class="upc-match">${m.id}</div><div class="upc-pick">${MT.f} ${MT.n}</div>${p.g1!=null||p.g2!=null?`<div class="upc-score">${p.g1!=null?p.g1:0}-${p.g2!=null?p.g2:0}</div>`:''}${pts}</div>`;
       });
       h+=`</div></div>`;
     });
